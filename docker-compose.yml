@@ -1,0 +1,26 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"                 # 호스트와 컨테이너 포트 매핑
+    environment:
+      MYSQL_ROOT_PASSWORD: qwe1212  # 루트 계정 비밀번호
+      MYSQL_DATABASE: groupware     # 기본 생성할 데이터베이스 이름
+      MYSQL_USER: groupware         # 추가 사용자 계정
+      MYSQL_PASSWORD: qwe1212       # 추가 사용자 비밀번호
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - mysql_data:/var/lib/mysql    # 데이터 디렉터리 볼륨 매핑
+
+volumes:
+  mysql_data:
