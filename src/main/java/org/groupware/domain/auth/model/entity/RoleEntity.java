@@ -26,5 +26,5 @@ public class RoleEntity extends TimeBaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String role;
+    private String roleName;
 }

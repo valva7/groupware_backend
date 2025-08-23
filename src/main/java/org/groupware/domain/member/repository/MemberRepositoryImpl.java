@@ -2,6 +2,7 @@ package org.groupware.domain.member.repository;
 
 import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.groupware.domain.auth.repository.JpaRoleRepository;
+import org.groupware.domain.member.model.entity.MemberRoleEntity;
 import org.springframework.stereotype.Repository;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.entity.MemberEntity;
@@ -23,8 +24,13 @@ public class MemberRepositoryImpl implements MemberRepository {
 
         // 권한 부여
         member.getInfo().getRoles().forEach(role -> {
-            RoleEntity roleEntity = jpaRoleRepository.findByRole(role);
-            memberEntity.getRoles().add(roleEntity);
+            RoleEntity roleEntity = jpaRoleRepository.findByRoleName(role).orElseThrow(() -> new MemberNotFoundException("존재하지 않는 권한"));
+
+            MemberRoleEntity memberRole = new MemberRoleEntity();
+            memberRole.setMember(memberEntity);
+            memberRole.setRole(roleEntity);
+
+            memberEntity.getMemberRoles().add(memberRole);
         });
 
         return jpaMemberRepository.save(memberEntity);
