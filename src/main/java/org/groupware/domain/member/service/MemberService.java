@@ -1,5 +1,6 @@
 package org.groupware.domain.member.service;
 
+import java.util.List;
 import org.groupware.domain.auth.dto.req.CreateMemberReq;
 import org.groupware.domain.member.dto.req.MemberRes;
 import org.groupware.domain.member.model.Member;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MemberService {
+
+    private static final String ROLE_USER = "USER";
 
     private final String initPasswordPrefix;
 
@@ -39,7 +42,7 @@ public class MemberService {
         // 사용자 초기 비밀번호 : coveone + 생년월일
         String initialPassword = initPasswordPrefix + req.birthday();
         String encodedPassword = passwordEncoder.encode(initialPassword);
-        MemberInfo memberInfo = new MemberInfo(req.memberId(), req.memberName(), encodedPassword,null);
+        MemberInfo memberInfo = new MemberInfo(req.memberId(), req.memberName(), encodedPassword, List.of(ROLE_USER),null);
         Member newMember = new Member(null, memberInfo);
 
         memberRepository.saveMember(newMember);

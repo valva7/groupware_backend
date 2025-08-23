@@ -17,9 +17,6 @@ public class CustomMemberDetailsService {
     }
 
     public UserDetails loadUserByUsername(Member member) throws UsernameNotFoundException {
-        return new CustomMemberDetails(
-            member.getId(),
-            member.getInfo().getMemberName()
-        );
+        return new CustomMemberDetails(member);
     }
 }

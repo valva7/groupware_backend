@@ -1,15 +1,24 @@
 package org.groupware.domain.member.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.MemberInfo;
 import org.groupware.global.entity.TimeBaseEntity;
@@ -33,6 +42,14 @@ public class MemberEntity extends TimeBaseEntity {
     @Column(nullable = false)
     private String memberName;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+        name = "member_roles",
+        joinColumns = @JoinColumn(name = "member_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<RoleEntity> roles = new ArrayList<>();
+
     @Column(nullable = false)
     private String password;
 
@@ -47,9 +64,11 @@ public class MemberEntity extends TimeBaseEntity {
     }
 
     public Member toMember() {
+        List<String> roleList = this.roles.stream().map(RoleEntity::getRole).toList();
+
         return Member.builder()
             .id(this.id)
-            .info(new MemberInfo(this.memberId, this.memberName, this.password, this.profileImageUrl))
+            .info(new MemberInfo(this.memberId, this.memberName, this.password, roleList, this.profileImageUrl))
             .build();
     }
 

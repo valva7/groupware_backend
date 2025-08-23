@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private static final String[] AUTH_ALLOWLIST = {
+    private static final String[] ALL_ALLOWLIST = {
         "/swagger-ui/**",
         "/v3/**",
         "/login/**",
@@ -32,6 +32,10 @@ public class SecurityConfig {
         "/auth/**",
         "/actuator/prometheus", // 인증 추가 예정
         "/actuator/**", // 인증 추가 예정
+    };
+
+    private static final String[] ADMIN_ALLOWLIST = {
+        "/member/create"
     };
 
     private final MemberRepository repository;
@@ -65,7 +69,8 @@ public class SecurityConfig {
 
         // AUTH_ALLOWLIST에 포함된 경로는 인증 없이 허용
         http.authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(AUTH_ALLOWLIST).permitAll() // allow list
+            .requestMatchers(ALL_ALLOWLIST).permitAll() // 인증 없이 접근 가능한 URI
+            .requestMatchers(ADMIN_ALLOWLIST).hasRole("ADMIN")
             .anyRequest().authenticated()); // 나머지 경로는 인증 필요
 
         // JWT 인증 필터 추가 (requestMatchers로 설정한 경로 외에서 동작하도록)
@@ -88,7 +93,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(AUTH_ALLOWLIST);
+        return (web) -> web.ignoring().requestMatchers(ALL_ALLOWLIST);
     }
 
     @Bean

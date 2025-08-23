@@ -1,30 +1,43 @@
 package org.groupware.domain.auth.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.groupware.domain.member.model.Member;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomMemberDetails implements UserDetails {
+public class CustomMemberDetails implements UserDetails, Serializable {
 
-    private Long id;
-    private String username;
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    protected transient Member member;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return member.getInfo().getRoles().stream()
+            .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+            .toList();
     }
 
     @Override
     public String getPassword() {
-        return "";
+        return member.getInfo().getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return member.getInfo().getMemberName();
     }
 }

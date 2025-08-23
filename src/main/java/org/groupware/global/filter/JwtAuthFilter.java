@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.groupware.domain.auth.model.CustomMemberDetails;
 import org.groupware.domain.auth.service.CustomMemberDetailsService;
@@ -13,6 +14,7 @@ import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.repository.MemberRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 

@@ -1,5 +1,7 @@
 package org.groupware.domain.member.repository;
 
+import org.groupware.domain.auth.model.entity.RoleEntity;
+import org.groupware.domain.auth.repository.JpaRoleRepository;
 import org.springframework.stereotype.Repository;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.entity.MemberEntity;
@@ -9,13 +11,22 @@ import org.groupware.global.exception.MemberNotFoundException;
 public class MemberRepositoryImpl implements MemberRepository {
 
     private final JpaMemberRepository jpaMemberRepository;
+    private final JpaRoleRepository jpaRoleRepository;
 
-    public MemberRepositoryImpl(JpaMemberRepository jpaMemberRepository) {
+    public MemberRepositoryImpl(JpaMemberRepository jpaMemberRepository, JpaRoleRepository jpaRoleRepository) {
         this.jpaMemberRepository = jpaMemberRepository;
+        this.jpaRoleRepository = jpaRoleRepository;
     }
 
     public MemberEntity saveMember(Member member){
         MemberEntity memberEntity = new MemberEntity(member);
+
+        // 권한 부여
+        member.getInfo().getRoles().forEach(role -> {
+            RoleEntity roleEntity = jpaRoleRepository.findByRole(role);
+            memberEntity.getRoles().add(roleEntity);
+        });
+
         return jpaMemberRepository.save(memberEntity);
     }
 
