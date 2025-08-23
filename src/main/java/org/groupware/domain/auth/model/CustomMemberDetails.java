@@ -17,12 +17,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomMemberDetails implements UserDetails, Serializable {
+public class CustomMemberDetails implements UserDetails {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    protected transient Member member;
+    private Member member;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

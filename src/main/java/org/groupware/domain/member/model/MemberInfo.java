@@ -1,14 +1,10 @@
 package org.groupware.domain.member.model;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class MemberInfo implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class MemberInfo {
 
     private final String memberId;
     private final String memberName;
