@@ -46,13 +46,22 @@
 - member_id (FK: member - id)
 
 ## 휴가
-### vacation (휴가)
+### vacation_request (휴가 신청)
 - id (PK)
 - vacation_member_id (FK: member - id)
 - vacation_type
 - start_date
 - end_date
 - days
+
+### vacation_member (직원 잔여 휴가 정보)
+- id (PK)
+- member_id (FK: member - id)
+- total_days
+- used_days
+- used_hours
+- remaining_days
+- remaining_hours
 
 ## 전자결재
 ### approval_type (전자결재 종류 목록)
@@ -68,8 +77,21 @@
 - type_id (FK: approval_type - id)
 - requester_id (FK: member - id)
 - title
-- content
 - status
+
+### approval_template_field (템플릿 필드)
+- id (PK)
+- template_id (FK: approval_type - id)
+- field_name (입력 항목 이름)
+- field_type (데이터 타입 (TEXT, NUMBER, DATE 등))
+- required_yn
+
+### approval_template_data (템플릿 데이터(결재 요청))
+- id (PK)
+- request_id (FK: approval_request - id)
+- template_field_id (FK: approval_template_field - id)
+- value
+- sequence (요청별 순서를 적용)
 
 ### approval_line (결재선)
 - id (PK)
