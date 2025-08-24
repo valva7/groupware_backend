@@ -17,8 +17,11 @@
 - approval_active_yn
 - project_active_yn
 - read_active_yn
+- push_token
+- push_yn
 - status
-- hire_date
+- hire_dt
+- expiration_dt
 
 ## 권한
 ### role (권한)
@@ -77,26 +80,28 @@
 - type_id (FK: approval_type - id)
 - requester_id (FK: member - id)
 - title
+- reject_reason
 - status
 
-### approval_template_field (템플릿 필드)
+### approval_type_field (전자결재 필드)
 - id (PK)
-- template_id (FK: approval_type - id)
+- type_id (FK: approval_type - id)
 - field_name (입력 항목 이름)
 - field_type (데이터 타입 (TEXT, NUMBER, DATE 등))
 - required_yn
 
-### approval_template_data (템플릿 데이터(결재 요청))
+### approval_type_data (전자결재 필드 데이터)
 - id (PK)
 - request_id (FK: approval_request - id)
-- template_field_id (FK: approval_template_field - id)
+- type_field_id (FK: approval_type_field - id)
 - value
 - sequence (요청별 순서를 적용)
 
 ### approval_line (결재선)
 - id (PK)
+- type (승인, 참조)
 - request_id (FK: approval_request - id)
-- approver_id (FK: member - id)
+- approval_id (FK: member - id)
 - sequence
 - status
 - approved_dt
@@ -128,6 +133,8 @@
 - id (PK)
 - post_id (FK: post - id)
 - liker_id (FK: member - id)
+- first_like_yn
+- like_yn
 
 ### post_attachment (첨부 파일)
 - id (PK)
@@ -140,8 +147,10 @@
 ### vote (투표 목록)
 - id (PK)
 - creator_id (FK: member - id)
+- type
 - title
 - description
+- target_department
 - status
 - start_date
 - end_date
@@ -189,3 +198,34 @@
 - file_name
 - file_path
 - file_size
+
+## 메뉴
+### menu (메뉴)
+- id (PK)
+- parent_id (FK: menu - id)
+- name
+- path
+- icon
+- sequence
+- active_yn
+
+## 공통 코드
+### common_code (공통 코드)
+- id (PK)
+- group_code
+- code
+- code_name
+- description
+- active_yn
+- sequence
+
+## 알림
+### notification (알림)
+- id (PK)
+- recipient_id (FK: member - id)
+- type
+- title
+- message
+- read_yn
+- go_url
+- created_at
