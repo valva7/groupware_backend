@@ -59,9 +59,6 @@ public class MemberEntity extends TimeBaseEntity {
     @Column(name = "emergency_phone", length = 20)
     private String emergencyPhone; // 비상 연락자 연락처
 
-    @Column(name = "approval_active_yn", nullable = false)
-    private Boolean approvalActiveYn; // 전자결재 승인 권한 여부
-
     @Column(name = "project_active_yn", nullable = false)
     private Boolean projectActiveYn; // 프로젝트 관리 권한 여부
 

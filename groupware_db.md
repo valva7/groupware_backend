@@ -13,7 +13,6 @@
 - emergency_name (비상 연락자 이름)
 - emergency_phone (비상 연락자 연락처)
 - password (로그인 비밀번호, 암호화 저장)
-- approval_active_yn (전자결재 사용 여부)
 - project_active_yn (프로젝트 참여 여부)
 - push_token (푸시 알림 토큰)
 - push_yn (푸시 알림 수신 여부)
