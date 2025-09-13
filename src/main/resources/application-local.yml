@@ -22,6 +22,19 @@ spring:
         show_sql: true # SQL ??
         format_sql: true # ??? ??
         use_sql_comments: true # JPQL ??
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: valvakim@gmail.com
+    password: aapagcbbfkyifaml
+    properties:
+      mail:
+        smtp:
+          debug: true
+          auth: true
+          timeout: 1000
+          starttls:
+            enable: true
 
 decorator:
   datasource:
@@ -42,3 +55,18 @@ server-url:
 init-password-prefix: coveone
 
 secret-key: groupware-backend-java-web-token-secretKey-is-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIATQZCSGQ2GSKKNX5I
+      secretKey: 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
+    region:
+      static: ap-southeast-2
+    stack:
+      auto: false
+    s3:
+      bucket: musicfile-bucket
+
+fcm:
+  certification: musicshare-sdk.json
