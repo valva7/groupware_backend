@@ -42,8 +42,11 @@ public class TokenProvider {
 
         // Claims 객체 생성 및 값 설정
         Claims claims = Jwts.claims();
-        claims.put("nickname", new String(member.getInfo().getMemberName().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8));
-        claims.put("email", new String(member.getInfo().getMemberId().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8));
+        claims.put("sub", String.valueOf(member.getInfo().getMemberId()));
+        claims.put("name", member.getInfo().getMemberName());
+        String rolesString = String.join(",", member.getInfo().getRoles());
+        claims.put("roles", rolesString);
+        claims.put("profileImageUrl", member.getInfo().getProfileImageUrl());
 
         return Jwts.builder()
                 .setClaims(claims)
