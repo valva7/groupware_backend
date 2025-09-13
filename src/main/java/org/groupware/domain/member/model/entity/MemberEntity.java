@@ -42,7 +42,7 @@ public class MemberEntity extends TimeBaseEntity {
     private List<MemberRoleEntity> memberRoles = new ArrayList<>();
 
     @Column(length = 50)
-    private String rank; // 직급
+    private String rankName; // 직급
 
     @Column(unique = true, nullable = false, length = 100)
     private String email; // 이메일 (유니크)
