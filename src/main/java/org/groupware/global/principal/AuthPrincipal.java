@@ -1,4 +1,4 @@
-package org.groupware.global.pricipal;
+package org.groupware.global.principal;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -13,8 +13,8 @@ import org.groupware.common.response.Response;
 import org.groupware.domain.auth.dto.req.CreateMemberReq;
 import org.groupware.domain.member.dto.req.MemberRes;
 import org.groupware.domain.member.service.MemberService;
-import org.groupware.global.pricipal.AuthPrincipal;
-import org.groupware.global.pricipal.UserAuth;
+import org.groupware.global.principal.AuthPrincipal;
+import org.groupware.global.principal.MemberAuth;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +41,7 @@ public class MemberController {
             @ApiResponse(responseCode = "200", description = "사용자 생성 성공")
         }
     )
-    public Response<Void> createMember(@Parameter(hidden = true) @AuthPrincipal UserAuth user, @RequestBody @Valid CreateMemberReq req) {
+    public Response<Void> createMember(@Parameter(hidden = true) @AuthPrincipal MemberAuth user, @RequestBody @Valid CreateMemberReq req) {
         memberService.createMember(req);
         return Response.ok(null);
     }
@@ -57,7 +57,7 @@ public class MemberController {
             @ApiResponse(responseCode = "200", description = "회원 정보 조회 성공", content = @Content(schema = @Schema(implementation = MemberRes.class)))
         }
     )
-    public Response<MemberRes> getMember(@Parameter(hidden = true) @AuthPrincipal UserAuth user, String memberId) {
+    public Response<MemberRes> getMember(@Parameter(hidden = true) @AuthPrincipal MemberAuth user, String memberId) {
         return Response.ok(memberService.getMember(memberId));
     }
 

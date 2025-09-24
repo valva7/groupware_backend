@@ -1,4 +1,4 @@
-package org.groupware.global.pricipal;
+package org.groupware.global.principal;
 
 import org.groupware.domain.auth.model.CustomMemberDetails;
 import org.groupware.domain.member.model.Member;
@@ -34,7 +34,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
 
             Member member = memberRepository.findMemberById(userDetails.getMember().getId());
             // 현재 로그인한 사용자 정보를 반환
-            return new UserAuth(member.getId(), member.getInfo().getMemberName());
+            return new MemberAuth(member.getId(), member.getInfo().getMemberName());
         }
 
         return null;
