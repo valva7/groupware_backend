@@ -5,6 +5,7 @@ import org.groupware.domain.auth.dto.res.LoginTokenRes;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.repository.MemberRepository;
 import org.groupware.domain.auth.dto.req.LoginReq;
+import org.groupware.domain.push.repository.FcmPushRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,13 @@ public class AuthService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FcmPushRepository fcmPushRepository;
 
-    public AuthService(TokenProvider tokenProvider, MemberRepository memberRepository,PasswordEncoder passwordEncoder) {
+    public AuthService(TokenProvider tokenProvider, MemberRepository memberRepository,PasswordEncoder passwordEncoder, FcmPushRepository fcmPushRepository) {
         this.tokenProvider = tokenProvider;
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.fcmPushRepository = fcmPushRepository;
     }
 
 
@@ -43,6 +46,9 @@ public class AuthService {
         // Jwt 토큰 발급
         String refreshToken = tokenProvider.createRefreshToken(member);
         String accessToken = tokenProvider.createAccessToken(member);
+
+        // firebase token 저장
+        fcmPushRepository.firebaseTokenSave(member, req.fcmToken());
 
         return new LoginTokenRes(accessToken, refreshToken);
     }

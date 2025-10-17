@@ -13,7 +13,10 @@ public record LoginReq(
     @Schema(description = "비밀번호", type = "String")
     @NotEmpty(message = "비밀번호는 필수입니다.")
     @Size(min = 8, max = 20, message = "비밀번호는 8자 이상 20자 이하여야 합니다.")
-    String password
+    String password,
+
+    @Schema(description = "Fcm Push Token", type = "String")
+    String fcmToken
 
 ) {
 
