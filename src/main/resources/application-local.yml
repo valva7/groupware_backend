@@ -69,4 +69,4 @@ cloud:
       bucket: musicfile-bucket
 
 fcm:
-  certification: musicshare-sdk.json
+  certification: certification-sdk.json
