@@ -18,7 +18,14 @@ public class FcmPushRepositoryImpl implements FcmPushRepository {
 
 
     public void firebaseTokenSave(Member member, String fcmToken) {
-        FcmTokenEntity fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken);
+        Optional<FcmTokenEntity> memberTokenInfo = jpaFcmPushRepository.findById(member.getId());
+
+        FcmTokenEntity fcmTokenEntity = null;
+        if( memberTokenInfo.isPresent() ){
+            fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken, memberTokenInfo.get().getPushYn());
+        } else {
+            fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken);
+        }
         jpaFcmPushRepository.save(fcmTokenEntity);
     }
 

@@ -21,4 +21,11 @@ public class FcmTokenEntity {
 
     @Column(name = "push_yn", nullable = false)
     private Boolean pushYn; // 푸시 알림 수신 여부
+
+    public FcmTokenEntity(Long userId, String token) {
+        this.userId = userId;
+        this.token = token;
+        this.pushYn = true;
+    }
+
 }

@@ -69,4 +69,4 @@ cloud:
       bucket: musicfile-bucket
 
 fcm:
-  certification: certification-sdk.json
+  certification: groupware-sdk.json
