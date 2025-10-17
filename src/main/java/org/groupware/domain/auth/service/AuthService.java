@@ -33,7 +33,7 @@ public class AuthService {
      * @return
      */
     public LoginTokenRes login(LoginReq req) {
-        // 이메일로 회원 정보 조회
+        // 회원 아이디로 정보 조회
         Member member = memberRepository.findMemberByMemberId(req.memberId());
         if (member == null) {
             throw new IllegalArgumentException("로그인 정보가 틀렸습니다.");

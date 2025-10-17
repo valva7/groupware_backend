@@ -62,12 +62,6 @@ public class MemberEntity extends TimeBaseEntity {
     @Column(name = "project_active_yn", nullable = false)
     private Boolean projectActiveYn; // 프로젝트 관리 권한 여부
 
-    @Column(name = "push_token")
-    private String pushToken; // 푸시 알림 토큰
-
-    @Column(name = "push_yn", nullable = false)
-    private Boolean pushYn; // 푸시 알림 수신 여부
-
     @Column(length = 20, nullable = false)
     private String status; // 재직 상태 (예: ACTIVE, LEAVE, RETIRED)
 
