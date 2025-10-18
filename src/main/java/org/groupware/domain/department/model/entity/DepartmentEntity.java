@@ -9,12 +9,20 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "department")
+@Table(name = "department", indexes = {
+    @Index(name = "idx_departmentId", columnList = "code"),
+})
 public class DepartmentEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // PK
+
+    @Column(nullable = false, unique = true, length = 10)
+    private String code; // 부서 코드
+
+    @Column(nullable = false, length = 100)
+    private String name; // 부서명
 
     // 상위 부서 (self-reference)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,9 +33,6 @@ public class DepartmentEntity extends TimeBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity leader;
-
-    @Column(nullable = false, length = 100)
-    private String name; // 부서명
 
     @Column(length = 255)
     private String description; // 부서 설명

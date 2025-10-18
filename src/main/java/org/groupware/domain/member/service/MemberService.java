@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberService {
 
-    private static final String ROLE_USER = "USER";
-
     private final String initPasswordPrefix;
 
     private final MemberRepository memberRepository;
@@ -39,13 +37,18 @@ public class MemberService {
             throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
         }
 
-        // 사용자 초기 비밀번호 : coveone + 생년월일
-        String initialPassword = initPasswordPrefix + req.birthday();
+        // 회원 정보 INSERT
+        // 사용자 초기 비밀번호 : coveone + TODO: 뭘 붙여야 하나?
+        String initialPassword = initPasswordPrefix;
         String encodedPassword = passwordEncoder.encode(initialPassword);
-        MemberInfo memberInfo = new MemberInfo(req.memberId(), req.memberName(), encodedPassword, List.of(ROLE_USER),null);
+        MemberInfo memberInfo = new MemberInfo(req.memberId(), req.memberName(), encodedPassword, List.of(req.baseRole()),null);
         Member newMember = new Member(null, memberInfo);
 
         memberRepository.saveMember(newMember);
+
+        // 회원 권한 INSERT
+
+        // 회원 부서 INSERT
     }
 
     /**

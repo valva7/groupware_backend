@@ -26,14 +26,6 @@ CREATE TABLE member (
 
 
 -- ========================
--- 기본 권한
--- ========================
-INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
-VALUES
-    ('BASE_ROLE', 'USER', '일반', '일반 사용자 권한', TRUE, 1),
-    ('BASE_ROLE', 'ADMIN', '관리자', '관리자 권한', TRUE, 2);
-
--- ========================
 -- 세부 권한
 -- ========================
 INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
@@ -177,3 +169,20 @@ VALUES
     ('NOTIFY', 'PRJ', '프로젝트', '프로젝트 알림', TRUE, 2),
     ('NOTIFY', 'BOARD', '게시판', '게시판 알림', TRUE, 3),
     ('NOTIFY', 'VOTE', '투표', '투표 알림', TRUE, 4);
+
+-- ========================
+-- 직급 유형
+-- ========================
+INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
+VALUES
+    ('POSITION', 'CEO', '대표이사', '회사의 최고 경영자', TRUE, 1),
+    ('POSITION', 'CFO', '재무이사', '재무 관련 책임자', TRUE, 2),
+    ('POSITION', 'EXD', '상무이사', '상무이사 직급', TRUE, 3),
+    ('POSITION', 'EXV', '전무이사', '전무이사 직급', TRUE, 4),
+    ('POSITION', 'CTO', '기술이사', '기술 관련 책임자', TRUE, 5),
+    ('POSITION', 'BD', '부장', '부서 책임자', TRUE, 6),
+    ('POSITION', 'CJ', '차장', '팀 부책임자', TRUE, 7),
+    ('POSITION', 'GJ', '과장', '팀 담당 관리자', TRUE, 8),
+    ('POSITION', 'DR', '대리', '업무 담당자', TRUE, 9),
+    ('POSITION', 'ENG', '사원', '일반 직원', TRUE, 10),
+    ('POSITION', 'INT', '인턴', '인턴 사원', TRUE, 11);

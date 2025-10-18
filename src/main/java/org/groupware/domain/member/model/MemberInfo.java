@@ -24,6 +24,7 @@ public class MemberInfo {
         this.memberName = memberName;
         this.password = password;
         this.roles = roles;
+        this.roles = roles;
         this.profileImageUrl = profileImageUrl;
     }
 
