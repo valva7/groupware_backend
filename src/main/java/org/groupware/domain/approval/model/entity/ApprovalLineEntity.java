@@ -5,13 +5,14 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "approval_line")
-public class ApprovalLineEntity {
+public class ApprovalLineEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

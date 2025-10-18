@@ -3,13 +3,14 @@ package org.groupware.domain.department.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "department")
-public class DepartmentEntity {
+public class DepartmentEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

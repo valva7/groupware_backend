@@ -5,13 +5,14 @@ import lombok.*;
 
 import java.time.LocalDate;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "vacation_request")
-public class VacationRequestEntity {
+public class VacationRequestEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

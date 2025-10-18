@@ -3,13 +3,14 @@ package org.groupware.domain.approval.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "approval_request")
-public class ApprovalRequestEntity {
+public class ApprovalRequestEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

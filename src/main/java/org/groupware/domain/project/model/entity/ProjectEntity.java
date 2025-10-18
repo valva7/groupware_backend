@@ -4,22 +4,18 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "project")
-public class ProjectEntity {
+public class ProjectEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // PK
-
-    // 프로젝트 종류 (FK: project_type.id)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "type_id", nullable = false)
-    private ProjectTypeEntity projectType;
 
     // 프로젝트 리더 (FK: member.id)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

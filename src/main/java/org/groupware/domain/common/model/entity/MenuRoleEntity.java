@@ -3,13 +3,14 @@ package org.groupware.domain.common.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.groupware.domain.auth.model.entity.RoleEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "menu_role")
-public class MenuRoleEntity {
+public class MenuRoleEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

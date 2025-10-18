@@ -2,13 +2,14 @@ package org.groupware.domain.post.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "post_attachment")
-public class PostAttachmentEntity {
+public class PostAttachmentEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

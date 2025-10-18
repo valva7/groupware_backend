@@ -2,13 +2,14 @@ package org.groupware.domain.vote.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "vote_option")
-public class VoteOptionEntity {
+public class VoteOptionEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

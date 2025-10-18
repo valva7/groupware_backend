@@ -3,13 +3,14 @@ package org.groupware.domain.vacation.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "vacation_member")
-public class VacationMemberEntity {
+public class VacationMemberEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

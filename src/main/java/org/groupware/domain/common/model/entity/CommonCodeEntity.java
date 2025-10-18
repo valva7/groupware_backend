@@ -2,13 +2,14 @@ package org.groupware.domain.common.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "common_code")
-public class CommonCodeEntity {
+public class CommonCodeEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -22,7 +22,11 @@ public class FcmPushRepositoryImpl implements FcmPushRepository {
 
         FcmTokenEntity fcmTokenEntity = null;
         if( memberTokenInfo.isPresent() ){
-            fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken, memberTokenInfo.get().getPushYn());
+            fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken,
+                memberTokenInfo.get().getApprovalYn()
+                , memberTokenInfo.get().getProjectYn()
+                , memberTokenInfo.get().getPostYn()
+                , memberTokenInfo.get().getVoteYn());
         } else {
             fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken);
         }

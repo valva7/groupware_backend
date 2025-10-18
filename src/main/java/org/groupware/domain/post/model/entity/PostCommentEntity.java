@@ -3,13 +3,14 @@ package org.groupware.domain.post.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "post_comment")
-public class PostCommentEntity {
+public class PostCommentEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

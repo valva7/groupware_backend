@@ -1,16 +1,17 @@
-package org.groupware.domain.common.model.entity;
+package org.groupware.domain.push.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 import org.groupware.domain.member.model.entity.MemberEntity;
+import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "notification")
-public class NotificationEntity {
+public class NotificationEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,7 @@ public class NotificationEntity {
     private MemberEntity recipient;
 
     @Column(nullable = false, length = 50)
-    private String type; // 알림 종류
+    private String type; // 알림 타입 (결재, 프로젝트, 게시판, 투표)
 
     @Column(nullable = false, length = 200)
     private String title; // 알림 제목
@@ -35,7 +36,4 @@ public class NotificationEntity {
 
     @Column(name = "go_url", length = 500)
     private String goUrl; // 이동 URL
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt; // 생성일시
 }
