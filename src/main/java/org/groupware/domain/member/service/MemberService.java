@@ -66,6 +66,8 @@ public class MemberService {
 
         MemberEntity newMemberEntity = memberRepository.saveMember(newMember);
 
+        // TODO: 메뉴 권한 INSERT
+
         // 직원 부서 INSERT
         DepartmentMemberEntity departmentMemberEntity = new DepartmentMemberEntity();
         departmentMemberEntity.setMember(newMemberEntity);

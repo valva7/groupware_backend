@@ -34,7 +34,9 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
 
             Member member = memberRepository.findMemberById(userDetails.getMember().getId());
             // 현재 로그인한 사용자 정보를 반환
-            return new MemberAuth(member.getId(), member.getInfo().getMemberName());
+            return new MemberAuth(member.getId(),
+                                member.getInfo().getRole(),
+                                member.getInfo().getProjectActiveYn());
         }
 
         return null;
