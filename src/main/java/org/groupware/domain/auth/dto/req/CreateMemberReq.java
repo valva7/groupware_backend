@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import org.groupware.global.annotation.ValidBaseRole;
 import org.groupware.global.annotation.ValidDepartment;
-import org.groupware.global.annotation.ValidDetailRole;
 import org.groupware.global.annotation.ValidRank;
 
 public record CreateMemberReq(
@@ -64,7 +63,6 @@ public record CreateMemberReq(
     String baseRole,
 
     @Schema(description = "세부 권한(프로젝트 관리)", type = "Boolean")
-    @ValidDetailRole
     Boolean projectActiveYn
 
 ) {}
