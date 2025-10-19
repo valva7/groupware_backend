@@ -1,20 +1,19 @@
 package org.groupware.domain.member.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.MemberInfo;
 import org.groupware.global.entity.TimeBaseEntity;
@@ -38,11 +37,8 @@ public class MemberEntity extends TimeBaseEntity {
     @Column(nullable = false)
     private String memberName;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberRoleEntity> memberRoles = new ArrayList<>();
-
     @Column(length = 50)
-    private String rankName; // 직급
+    private String rank; // 직급
 
     @Column(unique = true, nullable = false, length = 100)
     private String email; // 이메일 (유니크)
@@ -58,6 +54,10 @@ public class MemberEntity extends TimeBaseEntity {
 
     @Column(name = "emergency_phone", length = 20)
     private String emergencyPhone; // 비상 연락자 연락처
+
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private RoleEntity role;  // 권한
 
     @Column(name = "project_active_yn", nullable = false)
     private Boolean projectActiveYn; // 프로젝트 관리 권한 여부
@@ -85,11 +85,26 @@ public class MemberEntity extends TimeBaseEntity {
     }
 
     public Member toMember() {
-        List<String> roles = this.memberRoles.stream().map(memberRole -> memberRole.getRole().getRoleName()).toList();
-
         return Member.builder()
             .id(this.id)
-            .info(new MemberInfo(this.memberId, this.memberName, this.password, roles, this.profileImageUrl))
+            .info(
+                new MemberInfo(
+                    this.memberId
+                    , this.memberName
+                    , this.email
+                    , this.phone
+                    , this.address
+                    , this.password
+                    , this.profileImageUrl
+                    , this.emergencyName
+                    , this.emergencyPhone
+                    , this.rank
+                    , role.getRoleName()
+                    , this.projectActiveYn
+                    , this.status
+                    , this.hireDt
+                )
+            )
             .build();
     }
 

@@ -1,6 +1,8 @@
 package org.groupware.domain.department.model.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.global.entity.TimeBaseEntity;
@@ -29,14 +31,16 @@ public class DepartmentEntity extends TimeBaseEntity {
     @JoinColumn(name = "parent_department_id")
     private DepartmentEntity parent;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "department_id")
+    private List<DepartmentMemberEntity> members = new ArrayList<>();
+
     // 부서장 (MemberEntity FK)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "leader_id")
     private MemberEntity leader;
 
     @Column(length = 255)
     private String description; // 부서 설명
 
-    @Column(name = "department_tag", length = 50, unique = true, nullable = false)
-    private String departmentTag; // 부서 코드/태그
 }

@@ -43,8 +43,8 @@ public class GlobalExceptionHandler {
         return Response.error(exception.getErrorCode(), exception.getMessage());
     }
 
-    @ExceptionHandler(MemberNotFoundException.class)
-    public Response<Void> memberNotFoundException(MemberNotFoundException exception) {
+    @ExceptionHandler(MemberException.class)
+    public Response<Void> memberNotFoundException(MemberException exception) {
         log.error(exception.getMessage(), exception);
         return Response.error(exception.getErrorCode(), exception.getMessage());
     }

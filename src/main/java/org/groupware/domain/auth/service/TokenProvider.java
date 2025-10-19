@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,7 @@ import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.domain.member.repository.JpaMemberRepository;
 import org.groupware.global.exception.InvalidJwtException;
-import org.groupware.global.exception.MemberNotFoundException;
+import org.groupware.global.exception.MemberException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +43,7 @@ public class TokenProvider {
         Claims claims = Jwts.claims();
         claims.put("sub", String.valueOf(member.getInfo().getMemberId()));
         claims.put("name", member.getInfo().getMemberName());
-        String rolesString = String.join(",", member.getInfo().getRoles());
+        String rolesString = member.getInfo().getRole();
         claims.put("roles", rolesString);
         claims.put("profileImageUrl", member.getInfo().getProfileImageUrl());
 
@@ -65,7 +64,7 @@ public class TokenProvider {
     public String createNewAccessToken(String refreshToken) {
         Long userId = getMemberId(refreshToken);
         MemberEntity memberEntity = jpaMemberRepository.findById(userId)
-            .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 사용자"));
+            .orElseThrow(() -> new MemberException("존재하지 않는 사용자"));
         return createAccessToken(memberEntity.toMember());
     }
 

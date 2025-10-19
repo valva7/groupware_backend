@@ -1,7 +1,5 @@
 package org.groupware.domain.auth.model;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -23,9 +21,8 @@ public class CustomMemberDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return member.getInfo().getRoles().stream()
-            .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-            .toList();
+        String role = member.getInfo().getRole();
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override

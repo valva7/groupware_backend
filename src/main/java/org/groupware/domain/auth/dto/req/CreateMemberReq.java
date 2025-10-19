@@ -49,11 +49,11 @@ public record CreateMemberReq(
     @Schema(description = "직급", type = "String")
     @NotEmpty(message = "직급은 필수입니다.")
     @ValidRank
-    String position,
+    String rank,
 
     @Schema(description = "입사일", type = "LocalDate")
     @NotEmpty(message = "입사일은 필수입니다.")
-    LocalDate hireDate,
+    LocalDate hireDt,
 
     // ========================
     // 권한 정보
@@ -63,8 +63,8 @@ public record CreateMemberReq(
     @ValidBaseRole
     String baseRole,
 
-    @Schema(description = "세부 권한", type = "String")
+    @Schema(description = "세부 권한(프로젝트 관리)", type = "Boolean")
     @ValidDetailRole
-    String detailRole
+    Boolean projectActiveYn
 
 ) {}

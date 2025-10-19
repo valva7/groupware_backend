@@ -2,27 +2,33 @@ insert into role(role_name, reg_dt, upd_dt) values('ROLE_USER', now(), now());
 insert into role(role_name, reg_dt, upd_dt) values('ROLE_ADMIN'), (now(), now());
 
 CREATE TABLE member (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    memberId VARCHAR(255) NOT NULL UNIQUE,
-    memberName VARCHAR(255) NOT NULL,
-    rankName VARCHAR(50),
-    email VARCHAR(100) NOT NULL UNIQUE,
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    member_id VARCHAR(255) NOT NULL,
+    member_name VARCHAR(255) NOT NULL,
+    rank VARCHAR(50),
+    email VARCHAR(100) NOT NULL,
     phone VARCHAR(20),
     address VARCHAR(255),
     emergency_name VARCHAR(50),
     emergency_phone VARCHAR(20),
+    role_id BIGINT,
     project_active_yn BIT NOT NULL,
-    push_token VARCHAR(255),
-    push_yn BIT NOT NULL,
     status VARCHAR(20) NOT NULL,
     hire_dt DATE NOT NULL,
     expiration_dt DATE,
     password VARCHAR(255) NOT NULL,
-    profileImageUrl VARCHAR(255),
-    created_at DATETIME,
-    updated_at DATETIME,
-    INDEX idx_memberId(memberId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    profile_image_url VARCHAR(255),
+
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_member_member_id (member_id),
+    UNIQUE KEY uk_member_email (email),
+    KEY idx_memberId (member_id),
+    CONSTRAINT fk_member_role FOREIGN KEY (role_id)
+    REFERENCES role (id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 
 -- ========================
