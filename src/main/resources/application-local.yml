@@ -10,8 +10,8 @@ spring:
     url: jdbc:mysql://localhost:3306/groupware?useUnicode=true&serverTimezone=Asia/Seoul
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: groupware
-      password: qwe1212
+      username: ENC(u3RCsozrt+I1L3cLGPqxmJvdS0aKmQS9)
+      password: ENC(Z5VuCY71LAeVdjBap7s3aw==)
   jpa:
     database: mysql
     show-sql: true
@@ -25,8 +25,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: valvakim@gmail.com
-    password: aapagcbbfkyifaml
+    username: ENC(RFwM6uYqAzOmoT7VeA5DscQjc1zZNFVw5yiw8+DwVjQ=)
+    password: ENC(BheDL6bpnAC1mwmXTAMvUFfr3PembDmvDT9k4dYsSRQ=)
     properties:
       mail:
         smtp:
@@ -54,19 +54,23 @@ server-url:
 
 init-password-prefix: coev1
 
-secret-key: groupware-backend-java-web-token-secretKey-is-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+secret-key: ENC(K07yEkuGOA1i4gY4l7pUDPZgsaNDpqpd669XCuLFJGiYV2FLx35z6rl7ItBA5jU05DHoEZyK9OoPOpPUvnnYGywk6KeIrgbCfBLHEr9OzbOYb3pxVBdxNu0qkGvRpXsl)
 
 cloud:
   aws:
     credentials:
-      accessKey: AKIATQZCSGQ2GSKKNX5I
-      secretKey: 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
+      accessKey: ENC(NbePfvD6gIDdJsvPUQCaa8z9lbqwo+RQZB5u/9tBGcg=)
+      secretKey: ENC(WajtiTCu2TS2RuLgX0ZFeVi9XjH4ZOUcIsEIysRY64DuaDUh3AgCAuQdL4ZFBjGE4CQWCuoLntQ=)
     region:
       static: ap-southeast-2
     stack:
       auto: false
     s3:
-      bucket: groupware-bucket
+      bucket: ENC(0kZedFoEZaJ6Dm29ijCGpkIKhcF3QYfGCL4hRuHuWu4=)
 
 fcm:
   certification: groupware-sdk.json
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}

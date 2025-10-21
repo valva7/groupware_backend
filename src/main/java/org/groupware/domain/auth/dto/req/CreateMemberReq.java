@@ -12,7 +12,7 @@ import org.groupware.global.annotation.ValidRank;
 
 public record CreateMemberReq(
 
-// ========================
+    // ========================
     // 기본 정보
     // ========================
     @Schema(description = "이름", type = "String")
