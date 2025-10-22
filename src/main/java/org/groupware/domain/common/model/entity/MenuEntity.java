@@ -32,6 +32,9 @@ public class MenuEntity extends TimeBaseEntity {
     @Column(nullable = false)
     private Integer sequence; // 노출 순서
 
+    @Column(nullable = false, length = 100)
+    private String baseRole; // 기본 권한
+
     @Column(name = "active_yn", nullable = false)
     private Boolean activeYn; // 사용 여부
 }
