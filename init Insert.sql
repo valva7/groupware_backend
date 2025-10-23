@@ -1,34 +1,22 @@
-insert into role(role_name, reg_dt, upd_dt) values('ROLE_USER', now(), now());
-insert into role(role_name, reg_dt, upd_dt) values('ROLE_ADMIN'), (now(), now());
+-- role 샘플 데이터
+insert into role(role_name, created_dt, updated_dt) values('ROLE_USER', now(), now());
+insert into role(role_name, created_dt, updated_dt) values('ROLE_ADMIN' ,now(), now());
 
-CREATE TABLE member (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    member_id VARCHAR(255) NOT NULL,
-    member_name VARCHAR(255) NOT NULL,
-    rank VARCHAR(50),
-    email VARCHAR(100) NOT NULL,
-    phone VARCHAR(20),
-    address VARCHAR(255),
-    emergency_name VARCHAR(50),
-    emergency_phone VARCHAR(20),
-    role_id BIGINT,
-    project_active_yn BIT NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    hire_dt DATE NOT NULL,
-    expiration_dt DATE,
-    password VARCHAR(255) NOT NULL,
-    profile_image_url VARCHAR(255),
-
-    PRIMARY KEY (id),
-    UNIQUE KEY uk_member_member_id (member_id),
-    UNIQUE KEY uk_member_email (email),
-    KEY idx_memberId (member_id),
-    CONSTRAINT fk_member_role FOREIGN KEY (role_id)
-    REFERENCES role (id)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+-- member 샘플 데이터
+INSERT INTO member (
+    member_id, member_name, rank_cd,
+    email, phone, address,
+    emergency_name, emergency_phone,
+    role_id, project_active_yn, status,
+    hire_dt, expiration_dt,
+    password, profile_image_url
+) VALUES
+      ('kimgleam', '최은혁', 'R002', 'kimgleam@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
+      ('eunHyukChoi', '최은혁', 'R002', '1@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
+      ('heeCheolShin', '신희철', 'R003', '2@example.com', '010-3456-7890', '서울시 송파구', '박응급', '010-7654-3210', 1, 1, 'ACTIVE', '2023-03-01', NULL, 'password3', 'https://example.com/profile3.png'),
+      ('dongGeonPark', '박동건', 'R002', '3@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
+      ('junHyukLee', '이준혁', 'R001', '4@example.com', '010-4567-8901', '서울시 강북구', '최응급', '010-6543-2109', 1, 0, 'INACTIVE', '2022-12-01', '2023-12-01', 'password4', 'https://example.com/profile4.png'),
+      ('namSooPark', '박남수', 'R002', '5@example.com', '010-5678-9012', '서울시 마포구', '정응급', '010-5432-1098', 1, 1, 'ACTIVE', '2023-04-01', NULL, 'password5', 'https://example.com/profile5.png');
 
 
 -- ========================

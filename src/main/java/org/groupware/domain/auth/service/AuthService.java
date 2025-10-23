@@ -48,7 +48,7 @@ public class AuthService {
         String accessToken = tokenProvider.createAccessToken(member);
 
         // firebase token 저장
-        fcmPushRepository.firebaseTokenSave(member, req.fcmToken());
+//        fcmPushRepository.firebaseTokenSave(member, req.fcmToken());
 
         return new LoginTokenRes(accessToken, refreshToken);
     }

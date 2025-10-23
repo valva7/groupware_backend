@@ -38,7 +38,7 @@ public class MemberEntity extends TimeBaseEntity {
     private String memberName;
 
     @Column(length = 50)
-    private String rank; // 직급
+    private String rankCd; // 직급
 
     @Column(unique = true, nullable = false, length = 100)
     private String email; // 이메일 (유니크)
@@ -98,7 +98,7 @@ public class MemberEntity extends TimeBaseEntity {
                     , this.profileImageUrl
                     , this.emergencyName
                     , this.emergencyPhone
-                    , this.rank
+                    , this.rankCd
                     , role.getRoleName()
                     , this.projectActiveYn
                     , this.status
