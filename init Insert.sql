@@ -11,7 +11,7 @@ INSERT INTO member (
     hire_dt, expiration_dt,
     password, profile_image_url
 ) VALUES
-      ('kimgleam', '최은혁', 'R002', 'kimgleam@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
+      ('kimgleam', '김태욱', 'R002', 'kimgleam@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
       ('eunHyukChoi', '최은혁', 'R002', '1@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
       ('heeCheolShin', '신희철', 'R003', '2@example.com', '010-3456-7890', '서울시 송파구', '박응급', '010-7654-3210', 1, 1, 'ACTIVE', '2023-03-01', NULL, 'password3', 'https://example.com/profile3.png'),
       ('dongGeonPark', '박동건', 'R002', '3@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
