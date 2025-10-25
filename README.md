@@ -1,3 +1,55 @@
+# 🧩 계정 생성 및 Swagger 테스트 가이드
+
+## 1️⃣ 계정 생성 방법
+
+아래 API를 통해 계정을 생성할 수 있습니다.
+
+- **URL:** [http://localhost:8080/swagger-ui/index.html?urls.primaryName=member#/Member/createMember](http://localhost:8080/swagger-ui/index.html?urls.primaryName=member#/Member/createMember)
+- **Method:** `POST`
+
+### 📌 요청 예시 (Request Body)
+
+```json
+{
+    "memberName": "kim",
+    "memberId": "kim",
+    "email": "valva@naver.com",
+    "phone": "019-3859703",
+    "department": "EXEC",
+    "rank": "CEO",
+    "hireDt": "2025-10-25",
+    "baseRole": "ROLE_ADMIN",
+    "detailRole": {
+        "projectActiveYn": true
+    }
+}
+```
+
+
+## 2️⃣ AccessToken 발급 방법
+
+아래 API를 통해 AccessToken을 발급받을 수 있습니다.
+
+- **URL** [http://localhost:8080/swagger-ui/index.html?urls.primaryName=auth#/Auth/login]
+- **Method:** `POST`
+
+### 📌 요청 예시 (Request Body)
+
+```json
+{
+    "memberId": "kim",
+    "password": "coev1_init",
+    "fcmToken": "string"
+}
+```
+
+
+
+
+
+
+
+
 # 📘 코드 컨벤션 (MD)
 
 ## 📁 패키지 구조 예시 (도메인 + 계층 기반)
@@ -132,14 +184,14 @@ public interface MemberRepository {
 }
 ```
 
-### Repository 구현체 
+### Repository 구현체
 - Spring Data JPA 메서드는 도메인 + 조건 + 키워드 기반
-  - `findBy`, `countBy`, `existsBy`, `deleteBy` 사용
-  - 예시:
-    - `findByUsername(String username)`
-    - `findByEmailAndStatus(String email, Status status)`
-    - `existsByEmail(String email)`
-    - `deleteByCreatedDateBefore(LocalDate date)`
+    - `findBy`, `countBy`, `existsBy`, `deleteBy` 사용
+    - 예시:
+        - `findByUsername(String username)`
+        - `findByEmailAndStatus(String email, Status status)`
+        - `existsByEmail(String email)`
+        - `deleteByCreatedDateBefore(LocalDate date)`
 - 의존성 주입은 생성자 주입을 사용 (**@RequiredArgsConstructor**, **@AllArgsConstructor** 는 지양)
 ```java
 public class MemberRepositoryImpl implements MembercRepository{
@@ -199,10 +251,10 @@ public class Member {
 ### DTO
 - `@Getter`, `@Setter`, `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor`
 - ✅ 명명
-| 타입 | 접미사 | 예시 |
-|------|--------|------|
-| 요청 DTO | `Req` | `MemberCreateReq` |
-| 응답 DTO | `Res` | `MemberInfoRes` |
+  | 타입 | 접미사 | 예시 |
+  |------|--------|------|
+  | 요청 DTO | `Req` | `MemberCreateReq` |
+  | 응답 DTO | `Res` | `MemberInfoRes` |
 ```java
 @Getter
 @Builder

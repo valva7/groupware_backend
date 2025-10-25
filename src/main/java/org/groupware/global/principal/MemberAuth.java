@@ -1,9 +1,11 @@
 package org.groupware.global.principal;
 
+import org.groupware.domain.auth.model.DetailRole;
+
 public record MemberAuth(
     Long id,
     String role,
-    Boolean projectActiveYn
+    DetailRole detailRole
 ) {
 
 }

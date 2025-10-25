@@ -32,10 +32,11 @@ public class SecurityConfig {
         "/auth/**",
         "/actuator/prometheus", // 인증 추가 예정
         "/actuator/**", // 인증 추가 예정
+        "/member/create"
     };
 
     private static final String[] ADMIN_ALLOWLIST = {
-        "/member/create"
+//        "/member/create"
     };
 
     private final MemberRepository repository;

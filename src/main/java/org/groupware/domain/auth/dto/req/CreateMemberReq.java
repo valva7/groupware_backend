@@ -3,9 +3,11 @@ package org.groupware.domain.auth.dto.req;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
+import org.groupware.domain.auth.model.DetailRole;
 import org.groupware.global.annotation.ValidBaseRole;
 import org.groupware.global.annotation.ValidDepartment;
 import org.groupware.global.annotation.ValidRank;
@@ -51,7 +53,7 @@ public record CreateMemberReq(
     String rank,
 
     @Schema(description = "입사일", type = "LocalDate")
-    @NotEmpty(message = "입사일은 필수입니다.")
+    @NotNull(message = "입사일은 필수입니다.")
     LocalDate hireDt,
 
     // ========================
@@ -62,7 +64,7 @@ public record CreateMemberReq(
     @ValidBaseRole
     String baseRole,
 
-    @Schema(description = "세부 권한(프로젝트 관리)", type = "Boolean")
-    Boolean projectActiveYn
+    @Schema(description = "세부 권한(프로젝트 관리)", type = "DetailRole")
+    DetailRole detailRole
 
 ) {}

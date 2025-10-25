@@ -36,7 +36,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
             // 현재 로그인한 사용자 정보를 반환
             return new MemberAuth(member.getId(),
                                 member.getInfo().getRole(),
-                                member.getInfo().getProjectActiveYn());
+                                member.getInfo().getDetailRole());
         }
 
         return null;

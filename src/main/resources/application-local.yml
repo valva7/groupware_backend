@@ -52,7 +52,7 @@ server-url:
   back: http://localhost:8080
   front: http://localhost:3000
 
-init-password-prefix: coev1
+init-password-prefix: coev1_init
 
 secret-key: ENC(K07yEkuGOA1i4gY4l7pUDPZgsaNDpqpd669XCuLFJGiYV2FLx35z6rl7ItBA5jU05DHoEZyK9OoPOpPUvnnYGywk6KeIrgbCfBLHEr9OzbOYb3pxVBdxNu0qkGvRpXsl)
 

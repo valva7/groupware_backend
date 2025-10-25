@@ -2,6 +2,7 @@ package org.groupware.domain.member.model;
 
 import java.time.LocalDate;
 import lombok.Getter;
+import org.groupware.domain.auth.model.DetailRole;
 
 @Getter
 public class MemberInfo {
@@ -23,7 +24,7 @@ public class MemberInfo {
 
     // 권한
     private final String role;
-    private final Boolean projectActiveYn;
+    private final DetailRole detailRole;
 
     // 재직 상태
     private final String status;
@@ -34,7 +35,7 @@ public class MemberInfo {
 
     // 회원 생성
     public MemberInfo(String memberId, String memberName, String email, String phone, String password,
-                        String rank, String role, Boolean projectActiveYn, LocalDate hireDt)
+                        String rank, String role, DetailRole detailRole, LocalDate hireDt)
     {
 
         if(memberId == null || memberId.isEmpty()){
@@ -55,7 +56,7 @@ public class MemberInfo {
         this.emergencyPhone = null;
         this.rank = rank;
         this.role = role;
-        this.projectActiveYn = projectActiveYn;
+        this.detailRole = detailRole;
         this.status = null;
         this.hireDt = hireDt;
     }
@@ -65,7 +66,7 @@ public class MemberInfo {
     // toMember
     public MemberInfo(String memberId, String memberName, String email, String phone, String address,
                         String password, String profileImageUrl,String emergencyName, String emergencyPhone,
-                        String rank, String role, Boolean projectActiveYn, String status, LocalDate hireDt)
+                        String rank, String role, DetailRole detailRole, String status, LocalDate hireDt)
     {
 
         if(memberId == null || memberId.isEmpty()){
@@ -86,7 +87,7 @@ public class MemberInfo {
         this.emergencyPhone = emergencyPhone;
         this.rank = rank;
         this.role = role;
-        this.projectActiveYn = projectActiveYn;
+        this.detailRole = detailRole;
         this.status = status;
         this.hireDt = hireDt;
     }

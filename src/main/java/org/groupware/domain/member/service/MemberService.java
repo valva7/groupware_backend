@@ -1,5 +1,6 @@
 package org.groupware.domain.member.service;
 
+import jakarta.transaction.Transactional;
 import org.groupware.domain.auth.dto.req.CreateMemberReq;
 import org.groupware.domain.department.model.entity.DepartmentEntity;
 import org.groupware.domain.department.model.entity.DepartmentMemberEntity;
@@ -43,6 +44,7 @@ public class MemberService {
      * 직원 생성
      * @param req
      */
+    @Transactional
     public void createMember(CreateMemberReq req) {
         if (jpaMemberRepository.existsByMemberId(req.memberId())) {
             throw new MemberException("이미 존재하는 아이디입니다.");
@@ -59,7 +61,7 @@ public class MemberService {
             encodedPassword,
             req.rank(),
             req.baseRole(),
-            req.projectActiveYn(),
+            req.detailRole(),
             req.hireDt()
         );
         Member newMember = new Member(null, memberInfo);
@@ -72,10 +74,10 @@ public class MemberService {
         DepartmentMemberEntity departmentMemberEntity = new DepartmentMemberEntity();
         departmentMemberEntity.setMember(newMemberEntity);
 
-        DepartmentEntity departmentEntity = departmentRepository.findByCode(req.department()).orElseThrow(() -> new DepartmentException("존재하지 않는 부서"));
-        departmentEntity.getMembers().add(departmentMemberEntity);
+//        DepartmentEntity departmentEntity = departmentRepository.findByCode(req.department()).orElseThrow(() -> new DepartmentException("존재하지 않는 부서"));
+//        departmentEntity.getMembers().add(departmentMemberEntity);
 
-        departmentRepository.save(departmentEntity);
+//        departmentRepository.save(departmentEntity);
     }
 
     /**

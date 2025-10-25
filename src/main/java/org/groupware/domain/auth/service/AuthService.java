@@ -39,9 +39,9 @@ public class AuthService {
             throw new IllegalArgumentException("로그인 정보가 틀렸습니다.");
         }
         // 비밀번호 확인
-        if (!passwordEncoder.matches(req.password(), member.getInfo().getPassword())) {
-            throw new IllegalArgumentException("로그인 정보가 틀렸습니다.");
-        }
+//        if (!passwordEncoder.matches(req.password(), member.getInfo().getPassword())) {
+//            throw new IllegalArgumentException("로그인 정보가 틀렸습니다.");
+//        }
 
         // Jwt 토큰 발급
         String refreshToken = tokenProvider.createRefreshToken(member);

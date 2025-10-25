@@ -19,6 +19,13 @@ INSERT INTO member (
       ('namSooPark', '박남수', 'R002', '5@example.com', '010-5678-9012', '서울시 마포구', '정응급', '010-5432-1098', 1, 1, 'ACTIVE', '2023-04-01', NULL, 'password5', 'https://example.com/profile5.png');
 
 
+-- 부서 정보
+INSERT INTO department (id, parent_department_id, code, name, description, leader_id)
+VALUES(1, null, 'EXEC', '경영팀', '경영팀', null),
+      (2, null, 'DEV', '개발팀', '개발팀', null),
+      (3, 2, 'LEAD', '리더팀', '리더팀', null),
+      (4, 2, 'ENG', '엔지니어팀', '엔지니어팀', null);
+
 -- ========================
 -- 세부 권한
 -- ========================
@@ -91,19 +98,6 @@ VALUES
     ('WIKI', 'TECH', '기술 문서', '기술 관련 문서', TRUE, 2),
     ('WIKI', 'COMP', '회사 소개', '회사 소개 문서', TRUE, 3);
 
--- ========================
--- 부서
--- ========================
-INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
-VALUES
-    ('DEPT', 'EXEC', '경영진', '경영진 부서', TRUE, 1),
-    ('DEPT', 'DEV', '개발팀', '개발팀', TRUE, 2);
-
--- 부서 하위
-INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
-VALUES
-    ('DEV', 'LEAD', '리더팀', '리더팀', TRUE, 1),
-    ('DEV', 'ENG', '엔지니어팀', '엔지니어팀', TRUE, 2);
 
 -- ========================
 -- 비품/자산
@@ -184,49 +178,49 @@ VALUES
 
 
 -- 상위 메뉴: 전자결재
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES (1, NULL, '전자결재', '/approval', 'fa-file-signature', 1, 'USER', TRUE);
 
 -- 하위 메뉴: 전자결재
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES
     (2, 1, '기안함', '/approval/drafts', NULL, 1, 'USER', TRUE),
     (3, 1, '결재 목록', '/approval/list', NULL, 2, 'USER', TRUE);
 
 
 -- 상위 메뉴: 프로젝트 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES (4, NULL, '프로젝트 관리', '/projects', 'fa-project-diagram', 2, 'USER', TRUE);
 
 -- 하위 메뉴: 프로젝트 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES
     (5, 4, '프로젝트', '/projects/list', NULL, 1, 'USER', TRUE),
     (6, 4, '인력배정', '/projects/members', NULL, 2, 'USER', TRUE);
 
 
 -- 상위 메뉴: 투표
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES (7, NULL, '투표', '/votes', 'fa-poll', 3, 'USER', TRUE);
 
 
 -- 상위 메뉴: 조직 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES (8, NULL, '조직 관리', '/organization', 'fa-sitemap', 4, 'USER', TRUE);
 
 -- 하위 메뉴: 조직 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES
     (9, 8, '부서 목록', '/organization/departments', NULL, 1, 'USER', TRUE),
     (10, 8, '직원 현황', '/organization/employees', NULL, 2, 'USER', TRUE);
 
 
 -- 상위 메뉴: 커뮤니케이션
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES (11, NULL, '커뮤니케이션', '/communication', 'fa-comments', 5, 'USER', TRUE);
 
 -- 하위 메뉴: 커뮤니케이션
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES
     (12, 11, '게시판', '/communication/board', NULL, 1, 'USER', TRUE),
     (13, 11, '사내 위키', '/communication/wiki', NULL, 2, 'USER', TRUE),
@@ -234,11 +228,11 @@ VALUES
 
 
 -- 상위 메뉴: 관리자 메뉴
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES (15, NULL, '관리자 메뉴', '/admin', 'fa-user-shield', 6, 'ADMIN', TRUE);
 
 -- 하위 메뉴: 관리자 메뉴
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES
     (16, 15, '전자결재 관리', '/admin/approval', NULL, 1, 'ADMIN', TRUE),
     (17, 15, '게시물 관리', '/admin/posts', NULL, 2, 'ADMIN', TRUE),
@@ -250,5 +244,5 @@ VALUES
 
 
 -- 상위 메뉴: 내 정보
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, baseRole, active_yn)
+INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
 VALUES (23, NULL, '내 정보', '/my-info', 'fa-user', 7, 'USER', TRUE);

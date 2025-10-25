@@ -19,7 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenProvider {
 
-    private static final long TOKEN_VALID_TIME = 1000L * 60 * 60; // 1시간
+    private static final long TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 30; // 1개월 (30일 기준)
+
     private static final long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 1440; // 1 day
 
     private final SecretKey key;
@@ -43,8 +44,8 @@ public class TokenProvider {
         Claims claims = Jwts.claims();
         claims.put("sub", String.valueOf(member.getInfo().getMemberId()));
         claims.put("name", member.getInfo().getMemberName());
-        String rolesString = member.getInfo().getRole();
-        claims.put("roles", rolesString);
+        String role = member.getInfo().getRole();
+        claims.put("role", role);
         claims.put("profileImageUrl", member.getInfo().getProfileImageUrl());
 
         return Jwts.builder()

@@ -13,9 +13,11 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.groupware.domain.auth.model.DetailRole;
 import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.MemberInfo;
+import org.groupware.global.enums.MemberStatus;
 import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
@@ -80,11 +82,20 @@ public class MemberEntity extends TimeBaseEntity {
         this.id = member.getId();
         this.memberId = member.getInfo().getMemberId();
         this.memberName = member.getInfo().getMemberName();
+        this.rankCd = member.getInfo().getRank();
+        this.email = member.getInfo().getEmail();
+        this.projectActiveYn = member.getInfo().getDetailRole().getProjectActiveYn();
+        this.status = MemberStatus.WORK.getCode();
+        this.hireDt = member.getInfo().getHireDt();
         this.password = member.getInfo().getPassword();
         this.profileImageUrl = member.getInfo().getProfileImageUrl();
     }
 
     public Member toMember() {
+        DetailRole detailRole = DetailRole.builder()
+            .projectActiveYn(this.projectActiveYn)
+            .build();
+
         return Member.builder()
             .id(this.id)
             .info(
@@ -100,7 +111,7 @@ public class MemberEntity extends TimeBaseEntity {
                     , this.emergencyPhone
                     , this.rankCd
                     , role.getRoleName()
-                    , this.projectActiveYn
+                    , detailRole
                     , this.status
                     , this.hireDt
                 )
