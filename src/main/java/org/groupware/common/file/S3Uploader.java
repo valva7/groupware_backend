@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import org.groupware.global.exception.ErrorCode;
 import org.groupware.global.exception.S3FileProcessException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,7 +64,7 @@ public abstract class S3Uploader {
                 fos.write(file.getBytes());
             } catch (IOException e) {
                 log.error("파일 변환 중 오류 발생: {}", e.getMessage());
-                throw new S3FileProcessException("파일 변환 중 오류 발생: " + e.getMessage());
+                throw new S3FileProcessException(ErrorCode.S3FILE_UPLOAD_FAILED);
             }
         }
         return convertFile;
@@ -71,7 +72,7 @@ public abstract class S3Uploader {
 
     protected String putS3(File uploadFile, String fileName) {
         if (!uploadFile.exists()) {
-            throw new S3FileProcessException("파일이 비어있음");
+            throw new S3FileProcessException(ErrorCode.S3FILE_UPLOAD_FAILED);
         }
 
         String uploadDirectory = directory + fileName;
@@ -83,7 +84,7 @@ public abstract class S3Uploader {
 
     protected void removeNewFile(File targetFile) {
         if (!targetFile.delete()) {
-            throw new S3FileProcessException("파일 삭제 실패: " + targetFile.getName());
+            throw new S3FileProcessException(ErrorCode.S3FILE_UPLOAD_FAILED);
         }
     }
 
@@ -95,7 +96,7 @@ public abstract class S3Uploader {
     protected String fileValidate(MultipartFile multipartFile) {
         if (multipartFile.isEmpty()) {
             log.error("파일이 비어있음");
-            throw new S3FileProcessException("파일이 비어있음");
+            throw new S3FileProcessException(ErrorCode.S3FILE_UPLOAD_FAILED);
         }
 
         // 파일 이름에서 공백을 제거한 새로운 파일 이름 생성
@@ -103,14 +104,14 @@ public abstract class S3Uploader {
 
         if (originalFileName == null || originalFileName.isBlank()) {
             log.error("파일 이름이 비어있음");
-            throw new S3FileProcessException("파일 이름이 비어있음");
+            throw new S3FileProcessException(ErrorCode.S3FILE_UPLOAD_FAILED);
         }
 
         // 파일 확장자 확인
         String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
         if (fileExtensions.contains(fileExtension.toLowerCase())) {
             log.error("지원하지 않는 파일 형식: {}", fileExtension);
-            throw new S3FileProcessException("지원하지 않는 파일 형식: " + fileExtension);
+            throw new S3FileProcessException(ErrorCode.S3FILE_UPLOAD_FAILED);
         }
 
         return originalFileName;

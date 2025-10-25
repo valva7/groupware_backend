@@ -6,6 +6,8 @@ import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.repository.MemberRepository;
 import org.groupware.domain.auth.dto.req.LoginReq;
 import org.groupware.domain.push.repository.FcmPushRepository;
+import org.groupware.global.exception.ErrorCode;
+import org.groupware.global.exception.MemberException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,7 @@ public class AuthService {
         // 회원 아이디로 정보 조회
         Member member = memberRepository.findMemberByMemberId(req.memberId());
         if (member == null) {
-            throw new IllegalArgumentException("로그인 정보가 틀렸습니다.");
+            throw new MemberException(ErrorCode.WRONG_ACCOUNT);
         }
         // 비밀번호 확인
 //        if (!passwordEncoder.matches(req.password(), member.getInfo().getPassword())) {

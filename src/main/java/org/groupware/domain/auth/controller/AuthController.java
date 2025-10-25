@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.groupware.domain.auth.dto.req.LoginReq;
+import org.groupware.global.exception.InvalidJwtException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,12 +81,14 @@ public class AuthController {
     public Response<NewAccessTokenRes> refreshAccessToken(@RequestBody @Valid NewAccessTokenReq request) {
         String refreshToken = request.refreshToken();
 
+        String newAccessToken = null;
         if (tokenProvider.validateToken(refreshToken)) {
-            String newAccessToken = tokenProvider.createNewAccessToken(refreshToken);
-            return Response.ok(new NewAccessTokenRes(newAccessToken));
+            newAccessToken = tokenProvider.createNewAccessToken(refreshToken);
         } else {
-            return Response.error(ErrorCode.UNAUTHORIZED);
+            throw new InvalidJwtException(ErrorCode.UNAUTHORIZED);
         }
+
+        return Response.ok(new NewAccessTokenRes(newAccessToken));
     }
 
 }

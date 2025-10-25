@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.domain.member.repository.JpaMemberRepository;
+import org.groupware.global.exception.ErrorCode;
 import org.groupware.global.exception.InvalidJwtException;
 import org.groupware.global.exception.MemberException;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +66,7 @@ public class TokenProvider {
     public String createNewAccessToken(String refreshToken) {
         Long userId = getMemberId(refreshToken);
         MemberEntity memberEntity = jpaMemberRepository.findById(userId)
-            .orElseThrow(() -> new MemberException("존재하지 않는 사용자"));
+            .orElseThrow(() -> new MemberException(ErrorCode.ALREADY_EXIST));
         return createAccessToken(memberEntity.toMember());
     }
 
@@ -107,10 +108,10 @@ public class TokenProvider {
             );
         } catch (NumberFormatException e) {
             log.error("유효하지 않은 토큰: 잘못된 형식의 사용자 ID");
-            throw new InvalidJwtException("유효하지 않은 토큰: 잘못된 형식의 사용자 ID");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         } catch (JwtException e) {
             log.error("유효하지 않은 토큰: JWT 관련 예외 발생 - {}", e.getMessage());
-            throw new InvalidJwtException("유효하지 않은 토큰: JWT 관련 예외 발생");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         }
         return id;
     }
@@ -129,22 +130,22 @@ public class TokenProvider {
             return true;
         } catch (ExpiredJwtException e) {
             log.error("유효하지 않은 토큰: 만료된 토큰");
-            throw new InvalidJwtException("유효하지 않은 토큰: 만료된 토큰");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         } catch (MalformedJwtException e) {
             log.error("유효하지 않은 토큰: 올바르지 않은 형식의 JWT");
-            throw new InvalidJwtException("유효하지 않은 토큰: 올바르지 않은 형식의 JWT");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         } catch (UnsupportedJwtException e) {
             log.error("유효하지 않은 토큰: 지원되지 않는 JWT 형식");
-            throw new InvalidJwtException("유효하지 않은 토큰: 지원되지 않는 JWT 형식");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         } catch (SignatureException e) {
             log.error("유효하지 않은 토큰: 서명이 유효하지 않음");
-            throw new InvalidJwtException("유효하지 않은 토큰: 서명이 유효하지 않음");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         } catch (JwtException e) {
             log.error("유효하지 않은 토큰: JWT 관련 예외 발생 - {}", e.getMessage());
-            throw new InvalidJwtException("유효하지 않은 토큰: JWT 관련 예외 발생");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         } catch (Exception e) {
             log.error("유효하지 않은 토큰: 기타 예외 발생 - {}", e.getMessage());
-            throw new InvalidJwtException("유효하지 않은 토큰: 기타 예외 발생");
+            throw new InvalidJwtException(ErrorCode.JWT_EXCEPTION);
         }
     }
 

@@ -12,6 +12,7 @@ import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.domain.member.repository.JpaMemberRepository;
 import org.groupware.domain.member.repository.MemberRepository;
 import org.groupware.global.exception.DepartmentException;
+import org.groupware.global.exception.ErrorCode;
 import org.groupware.global.exception.MemberException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,7 +48,7 @@ public class MemberService {
     @Transactional
     public void createMember(CreateMemberReq req) {
         if (jpaMemberRepository.existsByMemberId(req.memberId())) {
-            throw new MemberException("이미 존재하는 아이디입니다.");
+            throw new MemberException(ErrorCode.ALREADY_EXIST);
         }
 
         // 직원 정보 INSERT

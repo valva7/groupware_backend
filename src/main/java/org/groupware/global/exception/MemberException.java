@@ -5,12 +5,12 @@ import lombok.Getter;
 @Getter
 public class MemberException extends RuntimeException{
 
-    private final ErrorCode errorCode;
+    private final int code;
     private final String message;
 
-    public MemberException(String message) {
-        this.errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
-        this.message = message;
+    public MemberException(ErrorCode code) {
+        this.code = code.getCode();
+        this.message = code.getMessage();
     }
 
 }
