@@ -81,6 +81,20 @@ VALUES
     ('POST_STATUS', 'DEL', '삭제', '삭제된 게시물', TRUE, 4);
 
 -- ========================
+-- 게시물 카테고리
+-- ========================
+INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
+VALUES
+    ('POST_CATEGORY', 'NOTICE', '공지사항', '공지사항 게시판', TRUE, 1),
+    ('POST_CATEGORY', 'FREE', '자유게시판', '자유 주제 게시판', TRUE, 2),
+    ('POST_CATEGORY', 'WORK', '업무공유', '업무 관련 공유 게시판', TRUE, 3),
+    ('POST_CATEGORY', 'QNA', '질문답변', '질문과 답변 게시판', TRUE, 4),
+    ('POST_CATEGORY', 'SUGGEST', '제안', '개선 제안 게시판', TRUE, 5),
+    ('POST_CATEGORY', 'EVENT', '행사안내', '행사 및 이벤트 안내', TRUE, 6),
+    ('POST_CATEGORY', 'EDUCATION', '교육자료', '교육 관련 자료', TRUE, 7),
+    ('POST_CATEGORY', 'ETC', '기타', '기타 게시판', TRUE, 8);
+
+-- ========================
 -- 메뉴얼 카테고리
 -- ========================
 INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
@@ -94,9 +108,15 @@ VALUES
 -- ========================
 INSERT INTO common_code (group_code, code, code_name, description, active_yn, sequence)
 VALUES
-    ('WIKI', 'POL', '정책 및 규정', '회사 정책 및 규정', TRUE, 1),
-    ('WIKI', 'TECH', '기술 문서', '기술 관련 문서', TRUE, 2),
-    ('WIKI', 'COMP', '회사 소개', '회사 소개 문서', TRUE, 3);
+    ('WIKI_CATEGORY', 'WORK_GUIDE', '업무가이드', '업무 가이드 문서', TRUE, 1),
+    ('WIKI_CATEGORY', 'SYS_MANUAL', '시스템매뉴얼', '시스템 매뉴얼 문서', TRUE, 2),
+    ('WIKI_CATEGORY', 'PROCESS', '프로세스', '프로세스 관련 문서', TRUE, 3),
+    ('WIKI_CATEGORY', 'POLICY', '정책및규정', '회사 정책 및 규정', TRUE, 4),
+    ('WIKI_CATEGORY', 'TECH', '기술문서', '기술 관련 문서', TRUE, 5),
+    ('WIKI_CATEGORY', 'COMPANY', '회사소개', '회사 소개 문서', TRUE, 6),
+    ('WIKI_CATEGORY', 'EDUCATION', '교육자료', '교육 관련 자료', TRUE, 7),
+    ('WIKI_CATEGORY', 'FAQ', 'FAQ', '자주 묻는 질문', TRUE, 8),
+    ('WIKI_CATEGORY', 'ETC', '기타', '기타 문서', TRUE, 9);
 
 
 -- ========================
