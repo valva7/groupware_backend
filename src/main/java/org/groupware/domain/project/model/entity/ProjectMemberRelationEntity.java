@@ -13,20 +13,22 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Table(name = "project_member_relation")
 public class ProjectMemberRelationEntity extends TimeBaseEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id; // PK
+    @EmbeddedId
+    private MemberProjectId id;
 
-    // PK: project_id, member_id
-
-    // 프로젝트 (FK: project.id)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "project_id", nullable = false)
+    // 복합키 : project.id, member.id
+    // (FK: project.id)
+    // MemberProjectId.memberId 매핑
+    @MapsId("projectId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
     private ProjectEntity project;
 
-    // 참여자 (FK: member.id)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "member_id", nullable = false)
+    // (FK: member.id)
+    // MemberProjectId.projectId
+    @MapsId("memberId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private MemberEntity member;
 
     @Column(length = 10)
