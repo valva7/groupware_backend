@@ -48,8 +48,8 @@
 ## docker 컨테이너 삭제 후 재시작
 * Database 테이블 전제 삭제 후 재시작 필요 시
 ```
-docker-compose down
-docker-compose up -d
+docker-compose down -v
+docker-compose up
 ```
 
 
