@@ -1,3 +1,17 @@
+# 🧩 프로젝트 실행 방법
+* 프로젝트 실행 전 환경변수 등록 필요
+ - JASYPT_ENCRYPTOR_PASSWORD="값은 문의 바람"
+
+# docker 관련
+* docker 실행 시 /mysql-init/*.sql 이 자동으로 실행되어 기본 테이블이 생성됩니다.
+
+* Database 테이블 전제 삭제 후 재시작 필요 시
+```
+docker-compose down -v
+docker-compose up
+```
+
+
 # 🧩 계정 생성 및 Swagger 테스트 가이드
 
 ## 1️⃣ 계정 생성 방법
@@ -41,15 +55,6 @@
     "password": "coev1_init",
     "fcmToken": "string"
 }
-```
-
-
-
-## docker 컨테이너 삭제 후 재시작
-* Database 테이블 전제 삭제 후 재시작 필요 시
-```
-docker-compose down -v
-docker-compose up
 ```
 
 
