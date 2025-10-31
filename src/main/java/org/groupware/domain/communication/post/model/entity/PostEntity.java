@@ -48,18 +48,8 @@ public class PostEntity extends TimeBaseEntity {
     @Column(name = "comment_count", nullable = false)
     private Long commentCount = 0L; // 댓글 수
 
-    @Column(name = "is_notice", nullable = false)
-    private Boolean isNotice = false; // 공지사항 여부
-
     @Column(name = "is_pinned", nullable = false)
     private Boolean isPinned = false; // 상단 고정 여부
-
-    @Column(name = "tags", length = 500)
-    private String tags; // 태그 목록 (JSON 배열 또는 comma-separated)
-
-    // 첨부파일 관계
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PostAttachmentEntity> attachments = new ArrayList<>();
 
     // 댓글 관계
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)

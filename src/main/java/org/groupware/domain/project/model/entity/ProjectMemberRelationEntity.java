@@ -13,9 +13,9 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Table(name = "project_member_relation")
 public class ProjectMemberRelationEntity extends TimeBaseEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id; // PK
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // PK
 
     // PK: project_id, member_id
 
