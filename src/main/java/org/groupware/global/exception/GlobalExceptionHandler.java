@@ -1,10 +1,13 @@
 package org.groupware.global.exception;
 
+import java.util.Locale;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.common.response.Response;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,7 +15,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+
+    private final MessageSource messageSource;
+
 
     @ExceptionHandler(IllegalArgumentException.class)
     public Response<Void> handleIllegalArgumentException(IllegalArgumentException exception) {
@@ -42,17 +49,26 @@ public class GlobalExceptionHandler {
     // ======================================= 커스텀 ============================================
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(InvalidJwtException.class)
-    public Response<Void> invalidJwtException(InvalidJwtException exception) {
+    public Response<Void> invalidJwtException(InvalidJwtException exception, Locale locale) {
         log.error(exception.getMessage(), exception);
-        return Response.error(exception.getCode(), exception.getMessage());
+
+        String localizedMessage = getMessageMultiLang(exception, locale);
+
+        return Response.error(exception.getCode(), localizedMessage);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(MemberException.class)
-    public Response<Void> memberNotFoundException(MemberException exception) {
-        log.error(exception.getMessage(), exception);
-        return Response.error(exception.getCode(), exception.getMessage());
+    public Response<Void> memberNotFoundException(MemberException exception, Locale locale) {
+
+        String localizedMessage = getMessageMultiLang(exception, locale);
+
+        return Response.error(exception.getCode(), localizedMessage);
     }
 
+    @NotNull
+    private String getMessageMultiLang(RuntimeException exception, Locale locale) {
+        return messageSource.getMessage(exception.getMessage(), null, locale);
+    }
 
 }

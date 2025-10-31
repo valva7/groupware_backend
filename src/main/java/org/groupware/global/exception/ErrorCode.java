@@ -6,15 +6,15 @@ import lombok.Getter;
 public enum ErrorCode {
 
     // 회원 및 인증 관련
-    WRONG_ACCOUNT(1001, "로그인 정보가 틀렸습니다."),
-    ALREADY_EXIST(1002, "이미 존재하는 아이디입니다."),
-    NO_EXIST_MEMBER(1003, "존재하지 않는 사용자"),
-    JWT_EXCEPTION(1101, "JWT 관련 예외 발생"),
-    UNAUTHORIZED(1102, "유효하지 않은 토큰입니다."),
-    NO_EXIST_ROLE(1103, "존재하지 않는 권한"),
+    WRONG_ACCOUNT(1001, "error.auth.wrong_account"),
+    ALREADY_EXIST(1002, "error.auth.already_exist"),
+    NO_EXIST_MEMBER(1003, "error.auth.no_exist_member"),
+    JWT_EXCEPTION(1101, "error.auth.jwt_exception"),
+    UNAUTHORIZED(1102, "error.auth.unauthorized"),
+    NO_EXIST_ROLE(1103, "error.auth.no_exist_role"),
 
     // 기타
-    S3FILE_UPLOAD_FAILED(9000, "파일 업로드 실패")
+    S3FILE_UPLOAD_FAILED(9000, "error.file.upload.failed")
 
 
 
