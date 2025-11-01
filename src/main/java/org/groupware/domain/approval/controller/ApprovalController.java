@@ -11,10 +11,10 @@ import org.groupware.domain.approval.dto.CreateApprovalReq;
 import org.groupware.domain.approval.service.ApprovalService;
 import org.groupware.global.principal.AuthPrincipal;
 import org.groupware.global.principal.MemberAuth;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +30,7 @@ public class ApprovalController {
         this.approvalService = approvalService;
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
         summary = "전자결재 생성",
         description = "전자결재를 생성한다",
