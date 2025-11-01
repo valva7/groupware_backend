@@ -1,6 +1,8 @@
 package org.groupware.domain.approval.model.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.global.entity.TimeBaseEntity;
@@ -20,6 +22,10 @@ public class ApprovalRequestEntity extends TimeBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "type_id", nullable = false)
     private ApprovalTypeEntity approvalType;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "request_id", nullable = false)
+    private List<ApprovalFieldDataEntity> approvalFieldDatas = new ArrayList<>();
 
     // 요청자 (FK: member.id)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

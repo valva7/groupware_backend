@@ -15,11 +15,6 @@ public class ApprovalFieldDataEntity extends TimeBaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // PK
 
-    // FK: approval_request.id
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "request_id", nullable = false)
-    private ApprovalRequestEntity approvalRequestEntity;
-
     @Column(nullable = false, length = 20)
     private String fieldName; // 입력 항목 이름
 
