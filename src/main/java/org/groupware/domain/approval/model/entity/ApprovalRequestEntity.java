@@ -23,7 +23,7 @@ public class ApprovalRequestEntity extends TimeBaseEntity {
     @JoinColumn(name = "type_id", nullable = false)
     private ApprovalTypeEntity approvalType;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "request_id", nullable = false)
     private List<ApprovalFieldDataEntity> approvalFieldDatas = new ArrayList<>();
 
