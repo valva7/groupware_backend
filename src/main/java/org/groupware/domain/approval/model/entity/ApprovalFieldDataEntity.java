@@ -8,8 +8,8 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "approval_type_data")
-public class ApprovalTypeDataEntity extends TimeBaseEntity {
+@Table(name = "approval_field_data")
+public class ApprovalFieldDataEntity extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +20,14 @@ public class ApprovalTypeDataEntity extends TimeBaseEntity {
     @JoinColumn(name = "request_id", nullable = false)
     private ApprovalRequestEntity approvalRequestEntity;
 
-    // FK: approval_field.id (전자결재 양식 항목 정의)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "type_field_id", nullable = false)
-    private ApprovalTypeFieldEntity approvalTypeField;
+    @Column(nullable = false, length = 20)
+    private String fieldName; // 입력 항목 이름
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String value; // 입력된 값
+    @Column(nullable = false, length = 100)
+    private String fieldValue; // 필드 값
+
+    @Column(nullable = false, length = 20)
+    private String fieldType; // 데이터 타입 (TEXT, NUMBER, DATE 등)
 
     @Column(nullable = false)
     private Integer sequence; // 항목 순서
