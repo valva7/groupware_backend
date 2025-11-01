@@ -20,7 +20,7 @@ public @interface FileValidate {
 
     Class<? extends Payload>[] payload() default {};
 
-    String[] allowedTypes() default {}; // 확장자 속성 추가 ({"mp3", "wav" ...})
+    String[] allowedTypes() default {}; // 확장자 속성 추가 ({"xls", "xlsx" ...})
 
     String fileType() default ""; // 파일 타입 속성 추가 ({"MC", "CM" ...})
 }

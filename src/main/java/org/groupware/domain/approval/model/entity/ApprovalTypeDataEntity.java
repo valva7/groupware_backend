@@ -23,7 +23,7 @@ public class ApprovalTypeDataEntity extends TimeBaseEntity {
     // FK: approval_field.id (전자결재 양식 항목 정의)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "type_field_id", nullable = false)
-    private ApprovalTypeEntity approvalTypeField;
+    private ApprovalTypeFieldEntity approvalTypeField;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String value; // 입력된 값

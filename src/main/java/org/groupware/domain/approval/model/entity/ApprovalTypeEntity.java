@@ -15,11 +15,6 @@ public class ApprovalTypeEntity extends TimeBaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // PK
 
-    // 상위 전자결재 종류 (self-reference)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private ApprovalTypeEntity parent;
-
     @Column(nullable = false, length = 100)
     private String name; // 전자결재 종류명
 

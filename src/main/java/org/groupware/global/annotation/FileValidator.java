@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileValidator implements ConstraintValidator<FileValidate, MultipartFile> {
 
-    private static final List<String> ALLOWED_EXTENSIONS = List.of("txt");
+    private static final List<String> ALLOWED_EXTENSIONS = List.of("xls", "xlsx");
     private static final List<String> ALLOWED_MIME_TYPES = List.of("");
 
     private final Tika tika = new Tika();
@@ -30,15 +30,14 @@ public class FileValidator implements ConstraintValidator<FileValidate, Multipar
 
         switch (fileType)
         {
-            // 음악 파일 검증
-            case "MF" -> {
+            // 업로드 유형
+            case "AU" -> {  // 전자결재
                 if (allowedTypes.length > 0) {
                     return MisicFileValidation(file);
                 } else {
                     return true;
                 }
             }
-            //case "CF" -> {}
         }
 
         return true;

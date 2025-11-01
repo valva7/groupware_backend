@@ -27,17 +27,17 @@ public class ApprovalLineEntity extends TimeBaseEntity {
     @JoinColumn(name = "request_id", nullable = false)
     private ApprovalRequestEntity approvalRequest;
 
-    // 결재자 (FK: member.id)
+    // 결재자 or 참조자 (FK: member.id)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "approval_id", nullable = false)
-    private MemberEntity approver;
+    @JoinColumn(name = "member_id", nullable = false)
+    private MemberEntity member;
 
     @Column(nullable = false)
     private Integer sequence; // 결재 순서
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String status; // 결재 상태
 
-    @Column(name = "approved_dt")
+    @Column
     private LocalDateTime approvedDt; // 결재 일시
 }

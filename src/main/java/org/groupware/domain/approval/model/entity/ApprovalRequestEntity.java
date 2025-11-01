@@ -29,6 +29,9 @@ public class ApprovalRequestEntity extends TimeBaseEntity {
     @Column(nullable = false, length = 200)
     private String title; // 제목
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content; // 내용
+
     @Column(name = "reject_reason", length = 500)
     private String rejectReason; // 반려 사유
 
