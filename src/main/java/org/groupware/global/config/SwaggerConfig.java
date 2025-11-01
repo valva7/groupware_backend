@@ -49,4 +49,12 @@ public class SwaggerConfig {
             .build();
     }
 
+    @Bean
+    public GroupedOpenApi approvalApi() {
+        return GroupedOpenApi.builder()
+            .group("approval")
+            .pathsToMatch("/approval/**")
+            .build();
+    }
+
 }
