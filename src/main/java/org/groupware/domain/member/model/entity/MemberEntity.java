@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import lombok.Getter;
@@ -57,7 +57,7 @@ public class MemberEntity extends TimeBaseEntity {
     @Column(name = "emergency_phone", length = 20)
     private String emergencyPhone; // 비상 연락자 연락처
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;  // 권한
 

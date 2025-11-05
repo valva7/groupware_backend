@@ -10,6 +10,14 @@ services:
       MYSQL_DATABASE: groupware     # 기본 생성할 데이터베이스 이름
       MYSQL_USER: groupware         # 추가 사용자 계정
       MYSQL_PASSWORD: qwe1212       # 추가 사용자 비밀번호
+      TZ: Asia/Seoul                # 타임존 설정 (옵션)
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--default-authentication-plugin=mysql_native_password",
+        "--skip-character-set-client-handshake"
+      ]
     deploy:
       resources:
         limits:

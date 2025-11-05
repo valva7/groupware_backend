@@ -1,11 +1,11 @@
 spring:
   servlet:
     multipart:
-      enabled: true
-      max-file-size: 10MB
-      max-request-size: 10MB
+      enabled: true              # 파일 업로드 기능 활성화
+      max-file-size: 10MB        # 업로드 가능한 파일의 최대 크기
+      max-request-size: 10MB     # 요청 전체의 최대 크기 (여러 파일 포함 시)
   application:
-    name: groupware
+    name: groupware              # 애플리케이션 이름 (Spring Boot 기본 식별자)
   datasource:
     url: jdbc:mysql://localhost:3306/groupware?useUnicode=true&serverTimezone=Asia/Seoul
     hikari:
@@ -16,12 +16,15 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: update    # DDL ?? ?? ?? ??
+      ddl-auto: update           # 엔티티 변경 시 DB 스키마 자동 업데이트
+      naming:
+        implicit-strategy: org.groupware.global.config.CustomImplicitNamingStrategy # 제약조건 명명 규칙 커스터마이징
     properties:
       hibernate:
-        show_sql: true # SQL ??
-        format_sql: true # ??? ??
-        use_sql_comments: true # JPQL ??
+        show_sql: true           # 실행되는 SQL 로그 출력
+        format_sql: true         # SQL 로그를 보기 좋게 포맷팅
+        use_sql_comments: true   # JPQL 실행 시 주석(SQL Hint) 표시
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -30,31 +33,32 @@ spring:
     properties:
       mail:
         smtp:
-          debug: true
-          auth: true
-          timeout: 1000
+          debug: true            # 메일 전송 디버그 로그 활성화
+          auth: true             # SMTP 인증 사용
+          timeout: 1000          # 메일 전송 타임아웃 (ms)
           starttls:
-            enable: true
+            enable: true         # TLS(보안 연결) 활성화
 
 decorator:
   datasource:
     p6spy:
-      enable-logging: true
+      enable-logging: true       # P6Spy를 통해 SQL 로그 로깅 (SQL 성능/내용 확인용)
 
 logging.level:
-  org.hibernate.type: trace # ?? ???? ??
+  org.hibernate.type: trace      # Hibernate SQL 파라미터 로그까지 자세히 출력
 
 server:
   tomcat:
-    max-http-form-post-size: 10MB
+    max-http-form-post-size: 10MB   # HTTP POST 요청 시 허용되는 최대 폼 데이터 크기
 
 server-url:
-  back: http://localhost:8080
-  front: http://localhost:3000
+  back: http://localhost:8080    # 백엔드 서버 주소
+  front: http://localhost:3000   # 프론트엔드 서버 주소
 
-init-password-prefix: coev1_init
+init-password-prefix: coev1_init   # 초기 비밀번호 생성 시 접두어
 
 secret-key: ENC(K07yEkuGOA1i4gY4l7pUDPZgsaNDpqpd669XCuLFJGiYV2FLx35z6rl7ItBA5jU05DHoEZyK9OoPOpPUvnnYGywk6KeIrgbCfBLHEr9OzbOYb3pxVBdxNu0qkGvRpXsl)
+# JWT, 암호화 등 보안용 비밀키 (Jasypt 암호화된 값)
 
 cloud:
   aws:
@@ -62,15 +66,15 @@ cloud:
       accessKey: ENC(NbePfvD6gIDdJsvPUQCaa8z9lbqwo+RQZB5u/9tBGcg=)
       secretKey: ENC(WajtiTCu2TS2RuLgX0ZFeVi9XjH4ZOUcIsEIysRY64DuaDUh3AgCAuQdL4ZFBjGE4CQWCuoLntQ=)
     region:
-      static: ap-southeast-2
+      static: ap-southeast-2     # S3 버킷이 위치한 AWS 리전
     stack:
-      auto: false
+      auto: false                # AWS CloudFormation 자동 설정 비활성화
     s3:
-      bucket: ENC(0kZedFoEZaJ6Dm29ijCGpkIKhcF3QYfGCL4hRuHuWu4=)
+      bucket: ENC(0kZedFoEZaJ6Dm29ijCGpkIKhcF3QYfGCL4hRuHuWu4=)  # 사용할 S3 버킷명
 
 fcm:
-  certification: groupware-sdk.json
+  certification: groupware-sdk.json   # Firebase Cloud Messaging 인증 파일 경로
 
 jasypt:
   encryptor:
-    password: ${JASYPT_ENCRYPTOR_PASSWORD}
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}  # Jasypt 암호화/복호화 비밀번호 (환경 변수로 관리)
