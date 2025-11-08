@@ -16,8 +16,9 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Getter
 public class FcmTokenEntity extends TimeBaseEntity {
     @Id
-    private Long userId;
+    private Long memberId;
 
+    @Column(length = 1000)
     private String token;
 
     @Column(name = "approval_yn", nullable = false)
@@ -32,8 +33,8 @@ public class FcmTokenEntity extends TimeBaseEntity {
     @Column(name = "vote_yn", nullable = false)
     private Boolean voteYn; // 투표 알림 수신 여부
 
-    public FcmTokenEntity(Long userId, String token) {
-        this.userId = userId;
+    public FcmTokenEntity(Long memberId, String token) {
+        this.memberId = memberId;
         this.token = token;
         this.approvalYn = true;
         this.projectYn = true;

@@ -47,13 +47,16 @@ public class MemberService {
      */
     @Transactional
     public void createMember(CreateMemberReq req) {
+        // 직원 ID 중복체크
         if (jpaMemberRepository.existsByMemberId(req.memberId())) {
             throw new MemberException(ErrorCode.ALREADY_EXIST);
         }
 
-        // 직원 정보 INSERT
-        String initialPassword = initPasswordPrefix;    // 사용자 초기 비밀번호 : coveone + TODO: 뭘 붙여야 하나?
-        String encodedPassword = passwordEncoder.encode(initialPassword);
+        // 초기 비밀번호 생성
+        String initPassword = initPasswordPrefix;    // 사용자 초기 비밀번호 : coev1 + TODO: 뭘 붙여야 하나?
+        String encodedPassword = passwordEncoder.encode(initPassword);
+
+        // 직원 정보 생성
         MemberInfo memberInfo = new MemberInfo(
             req.memberId(),
             req.memberName(),
@@ -65,8 +68,8 @@ public class MemberService {
             req.detailRole(),
             req.hireDt()
         );
-        Member newMember = new Member(null, memberInfo);
 
+        Member newMember = new Member(null, memberInfo);
         MemberEntity newMemberEntity = memberRepository.saveMember(newMember);
 
         // TODO: 메뉴 권한 INSERT
@@ -75,10 +78,10 @@ public class MemberService {
         DepartmentMemberEntity departmentMemberEntity = new DepartmentMemberEntity();
         departmentMemberEntity.setMember(newMemberEntity);
 
-//        DepartmentEntity departmentEntity = departmentRepository.findByCode(req.department()).orElseThrow(() -> new DepartmentException("존재하지 않는 부서"));
-//        departmentEntity.getMembers().add(departmentMemberEntity);
+        DepartmentEntity departmentEntity = departmentRepository.findByCode(req.department()).orElseThrow(() -> new DepartmentException(ErrorCode.NOT_EXIST_DEPARTMENT));
+        departmentEntity.getMembers().add(departmentMemberEntity);
 
-//        departmentRepository.save(departmentEntity);
+        departmentRepository.save(departmentEntity);
     }
 
     /**

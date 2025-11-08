@@ -13,6 +13,9 @@ public enum ErrorCode {
     UNAUTHORIZED(1102, "error.auth.unauthorized"),
     NO_EXIST_ROLE(1103, "error.auth.no_exist_role"),
 
+    // 부서 관련
+    NOT_EXIST_DEPARTMENT(2001, "error.department.not_exist"),
+
     // 기타
     S3FILE_UPLOAD_FAILED(9000, "error.file.upload.failed")
 

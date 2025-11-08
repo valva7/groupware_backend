@@ -20,10 +20,10 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     public MemberEntity saveMember(Member member){
-        MemberEntity memberEntity = new MemberEntity(member);
-
         // 권한 설정
         RoleEntity roleEntity = jpaRoleRepository.findByRoleName(member.getInfo().getRole()).orElseThrow(() -> new MemberException(ErrorCode.ALREADY_EXIST));
+
+        MemberEntity memberEntity = new MemberEntity(member);
         memberEntity.setRole(roleEntity);
 
         return jpaMemberRepository.save(memberEntity);

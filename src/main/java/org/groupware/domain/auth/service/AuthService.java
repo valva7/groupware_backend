@@ -40,9 +40,10 @@ public class AuthService {
         if (member == null) {
             throw new MemberException(ErrorCode.WRONG_ACCOUNT);
         }
+
         // 비밀번호 확인
 //        if (!passwordEncoder.matches(req.password(), member.getInfo().getPassword())) {
-//            throw new IllegalArgumentException("로그인 정보가 틀렸습니다.");
+//            throw new MemberException(ErrorCode.WRONG_ACCOUNT);
 //        }
 
         // Jwt 토큰 발급
@@ -50,7 +51,7 @@ public class AuthService {
         String accessToken = tokenProvider.createAccessToken(member);
 
         // firebase token 저장
-//        fcmPushRepository.firebaseTokenSave(member, req.fcmToken());
+        fcmPushRepository.firebaseTokenSave(member, req.fcmToken());
 
         return new LoginTokenRes(accessToken, refreshToken);
     }

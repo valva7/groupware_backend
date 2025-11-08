@@ -20,16 +20,20 @@ public class FcmPushRepositoryImpl implements FcmPushRepository {
     public void firebaseTokenSave(Member member, String fcmToken) {
         Optional<FcmTokenEntity> memberTokenInfo = jpaFcmPushRepository.findById(member.getId());
 
+        /*
+        * 유저의 토큰 정보가 없을 경우 토큰 정보 생성
+        * 유저의 토큰 정보가 있을 경우 해당 토큰 정보 업데이트
+        */
         FcmTokenEntity fcmTokenEntity = null;
-        if( memberTokenInfo.isPresent() ){
-            fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken,
-                memberTokenInfo.get().getApprovalYn()
-                , memberTokenInfo.get().getProjectYn()
-                , memberTokenInfo.get().getPostYn()
-                , memberTokenInfo.get().getVoteYn());
-        } else {
-            fcmTokenEntity = new FcmTokenEntity(member.getId(), fcmToken);
-        }
+        fcmTokenEntity = memberTokenInfo.map(tokenEntity ->
+                new FcmTokenEntity(member.getId()
+                                , fcmToken
+                                , tokenEntity.getApprovalYn()
+                                , tokenEntity.getProjectYn()
+                                , tokenEntity.getPostYn()
+                                , tokenEntity.getVoteYn())
+                ).orElseGet(() -> new FcmTokenEntity(member.getId(), fcmToken));
+
         jpaFcmPushRepository.save(fcmTokenEntity);
     }
 
