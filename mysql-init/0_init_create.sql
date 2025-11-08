@@ -106,13 +106,14 @@ CREATE TABLE menu (
 -- COMMON_CODE 테이블
 -- -------------------------------------------------------------------
 CREATE TABLE common_code (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-    created_dt  DATETIME(6) NULL,
-    updated_dt  DATETIME(6) NULL,
-    active_yn   BIT NOT NULL,
+    group_code  VARCHAR(100) NOT NULL,
     code        VARCHAR(50) NOT NULL,
     code_name   VARCHAR(100) NOT NULL,
     description VARCHAR(255),
-    group_code  VARCHAR(100) NOT NULL,
-    sequence    INT NOT NULL
+    active_yn   BIT NOT NULL,
+    sequence    INT NOT NULL,
+    created_dt  DATETIME(6) NULL,
+    updated_dt  DATETIME(6) NULL,
+    PRIMARY KEY (group_code, code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

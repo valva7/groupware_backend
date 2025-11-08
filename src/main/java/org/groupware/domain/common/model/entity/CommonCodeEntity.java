@@ -1,7 +1,9 @@
 package org.groupware.domain.common.model.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.*;
+import org.groupware.domain.common.model.CommonCode;
 import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
@@ -11,15 +13,8 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Table(name = "common_code")
 public class CommonCodeEntity extends TimeBaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // PK
-
-    @Column(name = "group_code", nullable = false, length = 100)
-    private String groupCode; // 코드 그룹
-
-    @Column(nullable = false, length = 50)
-    private String code; // 코드 값
+    @EmbeddedId
+    private CommonCodeId id; // ✅ 복합키 (groupCode + code)
 
     @Column(name = "code_name", nullable = false, length = 100)
     private String codeName; // 코드 이름

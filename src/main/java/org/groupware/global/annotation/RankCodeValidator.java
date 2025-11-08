@@ -2,18 +2,18 @@ package org.groupware.global.annotation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.groupware.domain.common.repository.CommonCodeRepository;
+import org.groupware.domain.common.repository.JpaCommonCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RankCodeValidator implements ConstraintValidator<ValidRank, String> {
 
-    private final CommonCodeRepository commonCodeRepository;
+    private final JpaCommonCodeRepository jpaCommonCodeRepository;
 
     @Autowired
-    public RankCodeValidator(CommonCodeRepository commonCodeRepository) {
-        this.commonCodeRepository = commonCodeRepository;
+    public RankCodeValidator(JpaCommonCodeRepository jpaCommonCodeRepository) {
+        this.jpaCommonCodeRepository = jpaCommonCodeRepository;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class RankCodeValidator implements ConstraintValidator<ValidRank, String>
         }
 
         // DB에서 'POSITION' 그룹 코드 안에 value가 있는지 확인
-        return commonCodeRepository.existsByGroupCodeAndCode("POSITION", rank);
+        return jpaCommonCodeRepository.existsByIdGroupCodeAndIdCode("POSITION", rank);
     }
 }

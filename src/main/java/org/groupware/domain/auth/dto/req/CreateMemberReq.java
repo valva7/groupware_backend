@@ -64,7 +64,7 @@ public record CreateMemberReq(
     @ValidBaseRole
     String baseRole,
 
-    @Schema(description = "세부 권한(프로젝트 관리)", type = "DetailRole")
+    @Schema(description = "세부 권한", type = "DetailRole")
     DetailRole detailRole
 
 ) {}

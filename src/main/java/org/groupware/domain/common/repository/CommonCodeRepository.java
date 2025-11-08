@@ -1,10 +1,10 @@
 package org.groupware.domain.common.repository;
 
-import org.groupware.domain.common.model.entity.CommonCodeEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import org.groupware.domain.common.model.CommonCode;
 
-public interface CommonCodeRepository extends JpaRepository<CommonCodeEntity, Long> {
+public interface CommonCodeRepository {
 
-    boolean existsByGroupCodeAndCode(String groupCode, String code);
+    List<CommonCode> findCommonCodeByGroupCode(String groupCode);
 
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.common.response.Response;
 import org.groupware.domain.auth.dto.req.CreateMemberReq;
@@ -23,15 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name="Member", description = "회원 관리 API")
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
-
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     @PostMapping("/create")
     @Operation(

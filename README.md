@@ -62,6 +62,126 @@ docker-compose up
 
 # 📘 코드 컨벤션 (MD)
 
+# 🌱 메소드 명명 규칙
+
+---
+
+## 🧩 1. 공통 기본 규칙 (Java 표준)
+
+모든 메소드명은 Java 기본 컨벤션을 따릅니다.
+
+| 항목 | 규칙 |
+|------|------|
+| **형식** | `camelCase` (소문자로 시작, 단어마다 대문자) |
+| **의미 중심** | 동사 + 목적어 형태 사용 (`getUser()`, `saveFile()`) |
+| **약어 금지** | `getUsr()` ❌ → `getUser()` ✅ |
+| **의도 드러내기** | 구현이 아닌 “무엇을 하는지” 표현 (`calculateTotalPrice()` 등) |
+
+---
+
+## 🧱 2. Controller 계층
+
+> **요청(Request)에 대한 행동 중심으로** 명명합니다.  
+> 즉, **HTTP Method + 리소스 이름** 조합이 일반적입니다.
+
+| 예시 | 설명 |
+|------|------|
+| `getUsers()` | 사용자 목록 조회 (GET `/users`) |
+| `getUserById(Long id)` | 사용자 단건 조회 (GET `/users/{id}`) |
+| `createUser(UserRequest request)` | 사용자 등록 (POST `/users`) |
+| `updateUser(Long id, UserRequest request)` | 사용자 수정 (PUT `/users/{id}`) |
+| `deleteUser(Long id)` | 사용자 삭제 (DELETE `/users/{id}`) |
+
+📌 **규칙 요약**
+- HTTP 동사에 맞춰 `get`, `create`, `update`, `delete` 사용
+- Controller 메소드명은 REST API의 의미와 일치시킴
+- 메소드명에 DTO나 Entity 이름을 포함해도 무방 (`createUser`, `createPost`, `updateComment` 등)
+
+---
+
+## 🧠 3. Service 계층
+
+> **비즈니스 행위 중심으로 명명**합니다.  
+> 실제 동작(로직)을 표현해야 하므로, 컨트롤러보다 **의미 중심적**입니다.
+
+| 예시 | 설명 |
+|------|------|
+| `registerUser(UserRequest request)` | 사용자 등록 로직 수행 |
+| `loginUser(String email, String password)` | 로그인 처리 |
+| `calculateAverageRating(Long postId)` | 평점 계산 |
+| `sendNotificationToFollowers(Long userId)` | 팔로워에게 알림 발송 |
+
+📌 **규칙 요약**
+- “비즈니스 행위”를 나타내는 **의미 있는 동사** 사용
+- `get`, `find`, `save`, `update`, `delete`, `calculate`, `send`, `process`, `register` 등
+- **Controller 이름을 그대로 복사하지 말고**, **업무적 의미**를 담음
+
+---
+
+## 🧾 4. Repository 계층 (Spring Data JPA 기준)
+
+> JPA 쿼리 메소드 네이밍 규칙을 따릅니다.  
+> 즉, **find + By + 속성명 + 조건** 형태.
+
+| 예시 | 설명 |
+|------|------|
+| `findByEmail(String email)` | 이메일로 조회 |
+| `findByUsernameAndStatus(String username, String status)` | 복합 조건 조회 |
+| `existsByEmail(String email)` | 존재 여부 확인 |
+| `deleteByUserId(Long userId)` | 조건 기반 삭제 |
+| `countByCategory(String category)` | 카테고리별 개수 카운트 |
+
+📌 **규칙 요약**
+- `findBy`, `readBy`, `getBy`, `countBy`, `existsBy`, `deleteBy` 등의 접두사
+- 조건은 **Entity 필드명 기준** (`findByUserIdAndStatus`)
+- 정렬은 `OrderBy필드명Asc/Desc` 추가 (`findByStatusOrderByCreatedAtDesc`)
+
+---
+
+## ⚙️ 5. 유틸리티 / 헬퍼 클래스
+
+> 입력 → 처리 → 결과의 의미를 명확히 드러냅니다.
+
+| 예시 | 설명 |
+|------|------|
+| `convertToEntity(UserRequest dto)` | DTO → Entity 변환 |
+| `convertToDto(User entity)` | Entity → DTO 변환 |
+| `generateRandomCode()` | 랜덤 코드 생성 |
+| `formatDate(LocalDateTime dateTime)` | 날짜 포맷팅 |
+
+📌 **규칙 요약**
+- `convert`, `format`, `generate`, `validate`, `parse` 등의 동사 사용
+- “변환”, “생성”, “검증”, “포맷팅” 등 도메인 독립적 로직 표현
+
+---
+
+## 📚 6. 테스트 코드
+
+> “검증 대상 메소드명 + 시나리오 + 기대 결과” 형식으로 명명합니다.
+
+| 예시 | 설명 |
+|------|------|
+| `createUser_WhenValidInput_ShouldSaveUser()` | 입력이 유효할 때 저장되어야 함 |
+| `loginUser_WhenPasswordIncorrect_ShouldThrowException()` | 비밀번호가 틀릴 때 예외 발생 |
+| `getUsers_ShouldReturnSortedList()` | 정렬된 목록 반환 확인 |
+
+📌 **규칙 요약**
+- Given/When/Then 패턴 반영 (`메소드명_When조건_Should결과`)
+- 테스트 목적이 명확하게 드러나야 함
+
+---
+
+## ✅ 요약
+
+| 계층 | 명명 패턴 | 예시 |
+|------|------------|------|
+| **Controller** | HTTP 동사 + 리소스 | `getUser()`, `createPost()` |
+| **Service** | 비즈니스 행위 중심 | `registerUser()`, `calculateRating()` |
+| **Repository** | JPA 규칙 | `findByEmail()`, `existsById()` |
+| **Util/Helper** | 행위 중심 | `convertToDto()`, `generateCode()` |
+| **Test** | 시나리오 기반 | `updateUser_WhenValid_ShouldSucceed()` |
+
+
 ## 📁 패키지 구조 예시 (도메인 + 계층 기반)
 ```
 com.projectname
@@ -128,7 +248,7 @@ public class MemberService {
 - `@Tag`, `@RequestMapping`, `@RestController`, `@RequiredArgsConstructor`
 - Controller: HTTP 액션 + 리소스명 중심 (ex. `getUser`, `createUser`, `updateUser`)
 - Swagger는 Operation으로 설명
-- 의존성 주입은 생성자 주입을 사용 (**@RequiredArgsConstructor**, **@AllArgsConstructor** 는 지양)
+- 의존성 주입은 어노테이션을 사용 (**@RequiredArgsConstructor**)
 
 ```java
 @Tag(name = "Member", description = "멤버 관련 API")

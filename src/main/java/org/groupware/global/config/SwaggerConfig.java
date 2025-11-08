@@ -57,4 +57,12 @@ public class SwaggerConfig {
             .build();
     }
 
+    @Bean
+    public GroupedOpenApi commonCodeApi() {
+        return GroupedOpenApi.builder()
+            .group("common-code")
+            .pathsToMatch("/common-code/**")
+            .build();
+    }
+
 }
