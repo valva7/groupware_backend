@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class CommonCode {
 
     private String code;
-    private String value;
+    private String name;
 
 }

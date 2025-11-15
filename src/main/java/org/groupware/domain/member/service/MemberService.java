@@ -1,6 +1,5 @@
 package org.groupware.domain.member.service;
 
-import jakarta.transaction.Transactional;
 import org.groupware.domain.auth.dto.req.CreateMemberReq;
 import org.groupware.domain.department.model.entity.DepartmentEntity;
 import org.groupware.domain.department.model.entity.DepartmentMemberEntity;
@@ -17,6 +16,7 @@ import org.groupware.global.exception.MemberException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberService {
@@ -89,6 +89,7 @@ public class MemberService {
      * @param memberId
      * @return
      */
+    @Transactional(readOnly = true)
     public MemberRes getMember(String memberId) {
         Member member = memberRepository.findMemberByMemberId(memberId);
         return new MemberRes(member);

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
+import org.groupware.domain.department.model.Department;
 import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.global.entity.TimeBaseEntity;
 
@@ -42,5 +43,15 @@ public class DepartmentEntity extends TimeBaseEntity {
 
     @Column(length = 255)
     private String description; // 부서 설명
+
+    public Department toDepartment() {
+        return Department.builder()
+            .id(this.id)
+            .code(this.code)
+            .name(this.name)
+            .parentCode(this.parent != null ? this.parent.toDepartment().getCode() : null)
+            .description(this.description)
+            .build();
+    }
 
 }

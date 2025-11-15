@@ -84,6 +84,7 @@ public class MemberEntity extends TimeBaseEntity {
         this.memberName = member.getInfo().getMemberName();
         this.rankCd = member.getInfo().getRank();
         this.email = member.getInfo().getEmail();
+        this.phone = member.getInfo().getPhone();
         this.projectActiveYn = member.getInfo().getDetailRole().getProjectActiveYn();
         this.status = MemberStatus.WORK.getCode();
         this.hireDt = member.getInfo().getHireDt();

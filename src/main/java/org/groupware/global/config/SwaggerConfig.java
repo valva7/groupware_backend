@@ -50,6 +50,14 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public GroupedOpenApi departmentApi() {
+        return GroupedOpenApi.builder()
+            .group("department")
+            .pathsToMatch("/department/**")
+            .build();
+    }
+
+    @Bean
     public GroupedOpenApi approvalApi() {
         return GroupedOpenApi.builder()
             .group("approval")
@@ -61,7 +69,7 @@ public class SwaggerConfig {
     public GroupedOpenApi commonCodeApi() {
         return GroupedOpenApi.builder()
             .group("common-code")
-            .pathsToMatch("/common-code/**")
+            .pathsToMatch("/common-codes/**")
             .build();
     }
 

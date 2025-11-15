@@ -26,7 +26,7 @@ public class CommonController {
     private final CommonService commonService;
 
 
-    @GetMapping("/common-codes/{groupCode}")
+    @GetMapping("/{groupCode}")
     @Operation(
         summary = "그룹코드로 공통 코드 리스트를 조회한다.",
         description = "그룹코드로 공통 코드 리스트를 조회한다.",

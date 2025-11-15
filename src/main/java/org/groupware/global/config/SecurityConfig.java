@@ -33,7 +33,8 @@ public class SecurityConfig {
         "/actuator/prometheus", // 인증 추가 예정
         "/actuator/**", // 인증 추가 예정
         "/member/create",
-        "/common-code/**"
+        "/department/**",
+        "/common-code/**",
     };
 
     private static final String[] ADMIN_ALLOWLIST = {
