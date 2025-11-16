@@ -26,7 +26,7 @@ public class DepartmentEntity extends TimeBaseEntity {
 
     // 상위 부서 (self-reference)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_department_id")
+    @JoinColumn(name = "parent_department_code")
     private DepartmentEntity parent;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

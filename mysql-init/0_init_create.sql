@@ -47,7 +47,7 @@ CREATE INDEX idx_member_id ON member (member_id);
 CREATE TABLE department (
     code VARCHAR(10) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    parent_department_id VARCHAR(10),  -- self-reference FK
+    parent_department_code VARCHAR(10),  -- self-reference FK
     leader_id VARCHAR(50),             -- MemberEntity PK 타입에 따라 조정
     description VARCHAR(255),
     PRIMARY KEY (code)
