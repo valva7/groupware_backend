@@ -5,13 +5,13 @@ import org.groupware.domain.member.model.Member;
 
 public record MemberRes(
     @Schema(description = "직원 ID", type = "String")
-    Long memberId,
+    String memberId,
     @Schema(description = "직원 이름", type = "String")
     String memberName
 ) {
 
     public MemberRes(Member member) {
-        this(member.getId(), member.getInfo().getMemberName());
+        this(member.getInfo().getMemberId(), member.getInfo().getMemberName());
     }
 
 }

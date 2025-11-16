@@ -1,6 +1,8 @@
 package org.groupware.domain.common.repository;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.groupware.domain.common.model.CommonCode;
 import org.groupware.domain.common.model.entity.CommonCodeEntity;
@@ -15,10 +17,13 @@ public class CommonCodeRepositoryImpl implements CommonCodeRepository{
     private final JpaCommonCodeRepository jpaCommonCodeRepository;
 
     public List<CommonCode> findCommonCodeByGroupCode(String groupCode) {
-        List<CommonCodeEntity> commonCodes = jpaCommonCodeRepository.findByIdGroupCodeAndActiveYn(groupCode, ACTIVE_Y);
+        Optional<List<CommonCodeEntity>> commonCodeEntities = jpaCommonCodeRepository.findByIdGroupCodeAndActiveYn(groupCode, ACTIVE_Y);
 
-        return commonCodes.stream().map(code -> new CommonCode(code.getId().getCode(), code.getCodeName()))
-            .toList();
+        return commonCodeEntities
+            .map(list -> list.stream()
+            .map(CommonCodeEntity::toCommonCode)
+            .toList())
+            .orElse(Collections.emptyList());
     }
 
 }

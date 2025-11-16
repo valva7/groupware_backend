@@ -2,8 +2,6 @@ package org.groupware.domain.member.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
@@ -13,6 +11,7 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.groupware.domain.auth.dto.req.UpdateMemberReq;
 import org.groupware.domain.auth.model.DetailRole;
 import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.groupware.domain.member.model.Member;
@@ -30,9 +29,6 @@ import org.groupware.global.entity.TimeBaseEntity;
 public class MemberEntity extends TimeBaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(nullable = false, unique = true)
     private String memberId;
 
@@ -79,7 +75,6 @@ public class MemberEntity extends TimeBaseEntity {
     private String profileImageUrl;
 
     public MemberEntity(Member member) {
-        this.id = member.getId();
         this.memberId = member.getInfo().getMemberId();
         this.memberName = member.getInfo().getMemberName();
         this.rankCd = member.getInfo().getRank();
@@ -98,7 +93,6 @@ public class MemberEntity extends TimeBaseEntity {
             .build();
 
         return Member.builder()
-            .id(this.id)
             .info(
                 new MemberInfo(
                     this.memberId
@@ -111,6 +105,7 @@ public class MemberEntity extends TimeBaseEntity {
                     , this.emergencyName
                     , this.emergencyPhone
                     , this.rankCd
+                    , role.getId()
                     , role.getRoleName()
                     , detailRole
                     , this.status
@@ -118,6 +113,12 @@ public class MemberEntity extends TimeBaseEntity {
                 )
             )
             .build();
+    }
+
+    public void update(UpdateMemberReq req) {
+        this.rankCd = req.rank();
+        this.status = req.status();
+        this.projectActiveYn = req.detailRole().getProjectActiveYn();
     }
 
 }

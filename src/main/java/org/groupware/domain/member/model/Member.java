@@ -14,7 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Member {
 
-    private Long id;
     private MemberInfo info;
 
 }

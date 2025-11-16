@@ -18,9 +18,6 @@ import org.groupware.global.entity.TimeBaseEntity;
 public class DepartmentEntity extends TimeBaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // PK
-
     @Column(nullable = false, unique = true, length = 10)
     private String code; // 부서 코드
 
@@ -33,12 +30,12 @@ public class DepartmentEntity extends TimeBaseEntity {
     private DepartmentEntity parent;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_code")
     private List<DepartmentMemberEntity> members = new ArrayList<>();
 
     // 부서장 (MemberEntity FK)
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "leader_id")
+    @JoinColumn(name = "leader_id", columnDefinition = "VARCHAR(50)")
     private MemberEntity leader;
 
     @Column(length = 255)
@@ -46,7 +43,6 @@ public class DepartmentEntity extends TimeBaseEntity {
 
     public Department toDepartment() {
         return Department.builder()
-            .id(this.id)
             .code(this.code)
             .name(this.name)
             .parentCode(this.parent != null ? this.parent.toDepartment().getCode() : null)

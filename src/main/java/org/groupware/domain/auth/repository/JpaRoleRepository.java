@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JpaRoleRepository extends JpaRepository<RoleEntity, Long> {
 
-    Optional<RoleEntity> findByRoleName(String role);
+    Optional<RoleEntity> findById(int role);
 
     boolean existsByRoleName(String role);
 

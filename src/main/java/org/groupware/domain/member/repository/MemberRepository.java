@@ -7,7 +7,7 @@ public interface MemberRepository {
 
     MemberEntity saveMember(Member member);
 
-    Member findMemberById(Long memberId);
+    Member findMemberById(Long id);
 
-    Member findMemberByMemberId(String email);
+    Member findMemberByMemberId(String memberId);
 }

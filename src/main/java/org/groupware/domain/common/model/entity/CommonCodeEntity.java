@@ -27,4 +27,12 @@ public class CommonCodeEntity extends TimeBaseEntity {
 
     @Column(nullable = false)
     private Integer sequence; // 노출 순서
+
+    public CommonCode toCommonCode(){
+        return CommonCode.builder()
+            .code(this.id.getCode())
+            .name(this.codeName)
+            .sequence(this.sequence)
+            .build();
+    }
 }

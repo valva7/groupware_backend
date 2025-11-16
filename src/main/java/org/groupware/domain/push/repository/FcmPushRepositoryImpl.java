@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class FcmPushRepositoryImpl implements FcmPushRepository {
 
-    private final JpaFcmPushRepository jpaFcmPushRepository;
+    private final JpaFcmTokenRepository jpaFcmTokenRepository;
 
-    public FcmPushRepositoryImpl(JpaFcmPushRepository jpaFcmPushRepository) {
-        this.jpaFcmPushRepository = jpaFcmPushRepository;
+    public FcmPushRepositoryImpl(JpaFcmTokenRepository jpaFcmTokenRepository) {
+        this.jpaFcmTokenRepository = jpaFcmTokenRepository;
     }
 
 
     public void firebaseTokenSave(Member member, String fcmToken) {
-        Optional<FcmTokenEntity> memberTokenInfo = jpaFcmPushRepository.findById(member.getId());
+        Optional<FcmTokenEntity> memberTokenInfo = jpaFcmTokenRepository.findById(member.getInfo().getMemberId());
 
         /*
         * 유저의 토큰 정보가 없을 경우 토큰 정보 생성
@@ -26,20 +26,20 @@ public class FcmPushRepositoryImpl implements FcmPushRepository {
         */
         FcmTokenEntity fcmTokenEntity = null;
         fcmTokenEntity = memberTokenInfo.map(tokenEntity ->
-                new FcmTokenEntity(member.getId()
+                new FcmTokenEntity(member.getInfo().getMemberId()
                                 , fcmToken
                                 , tokenEntity.getApprovalYn()
                                 , tokenEntity.getProjectYn()
                                 , tokenEntity.getPostYn()
                                 , tokenEntity.getVoteYn())
-                ).orElseGet(() -> new FcmTokenEntity(member.getId(), fcmToken));
+                ).orElseGet(() -> new FcmTokenEntity(member.getInfo().getMemberId(), fcmToken));
 
-        jpaFcmPushRepository.save(fcmTokenEntity);
+        jpaFcmTokenRepository.save(fcmTokenEntity);
     }
 
     @Override
     public String findReceiverToken(Member receiver) {
-        Optional<FcmTokenEntity> tokenEntity = jpaFcmPushRepository.findById(receiver.getId());
+        Optional<FcmTokenEntity> tokenEntity = jpaFcmTokenRepository.findById(receiver.getInfo().getMemberId());
         if (tokenEntity.isEmpty()) {
             return "";
         } else {

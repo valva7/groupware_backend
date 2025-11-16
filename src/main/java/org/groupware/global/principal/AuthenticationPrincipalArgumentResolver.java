@@ -32,9 +32,9 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
         if (authentication != null) {
             CustomMemberDetails userDetails = (CustomMemberDetails) authentication.getPrincipal();
 
-            Member member = memberRepository.findMemberById(userDetails.getMember().getId());
+            Member member = memberRepository.findMemberByMemberId(userDetails.getMember().getInfo().getMemberId());
             // 현재 로그인한 사용자 정보를 반환
-            return new MemberAuth(member.getId(),
+            return new MemberAuth(member.getInfo().getMemberId(),
                                 member.getInfo().getRole(),
                                 member.getInfo().getDetailRole());
         }

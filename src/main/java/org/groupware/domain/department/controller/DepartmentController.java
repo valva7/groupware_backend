@@ -8,10 +8,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.common.response.Response;
 import org.groupware.domain.department.dto.res.DepartmentListRes;
+import org.groupware.domain.department.model.Department;
 import org.groupware.domain.department.service.DepartmentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,9 +40,9 @@ public class DepartmentController {
         }
     )
     public Response<DepartmentListRes> getDepartmentList() {
-        DepartmentListRes departmentList = departmentService.findDepartmentList();
+        List<Department> departmentList = departmentService.findDepartmentList();
 
-        return Response.ok(departmentList);
+        return Response.ok(new DepartmentListRes(departmentList));
     }
 
 

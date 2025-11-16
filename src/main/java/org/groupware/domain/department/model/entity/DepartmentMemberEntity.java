@@ -12,12 +12,17 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Table(name = "department_member")
 public class DepartmentMemberEntity extends TimeBaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // PK
+    @EmbeddedId
+    private DepartmentMemberId id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("memberId")
+    @JoinColumn(name = "member_id", columnDefinition = "VARCHAR(50)")
     private MemberEntity member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("departmentCode")
+    @JoinColumn(name = "department_code", columnDefinition = "VARCHAR(50)")
+    private DepartmentEntity department;
 
 }

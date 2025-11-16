@@ -23,7 +23,8 @@ public class MemberInfo {
     private final String rank;
 
     // 권한
-    private final String role;
+    private final Long role;
+    private final String roleName;
     private final DetailRole detailRole;
 
     // 재직 상태
@@ -35,7 +36,7 @@ public class MemberInfo {
 
     // 회원 생성
     public MemberInfo(String memberId, String memberName, String email, String phone, String password,
-                        String rank, String role, DetailRole detailRole, LocalDate hireDt)
+                        String rank, Long role, DetailRole detailRole, LocalDate hireDt)
     {
 
         if(memberId == null || memberId.isEmpty()){
@@ -56,17 +57,16 @@ public class MemberInfo {
         this.emergencyPhone = null;
         this.rank = rank;
         this.role = role;
+        this.roleName = null;
         this.detailRole = detailRole;
         this.status = null;
         this.hireDt = hireDt;
     }
 
-    // TODO: 회원 수정
-
     // toMember
     public MemberInfo(String memberId, String memberName, String email, String phone, String address,
                         String password, String profileImageUrl,String emergencyName, String emergencyPhone,
-                        String rank, String role, DetailRole detailRole, String status, LocalDate hireDt)
+                        String rank, Long role, String roleName, DetailRole detailRole, String status, LocalDate hireDt)
     {
 
         if(memberId == null || memberId.isEmpty()){
@@ -87,6 +87,7 @@ public class MemberInfo {
         this.emergencyPhone = emergencyPhone;
         this.rank = rank;
         this.role = role;
+        this.roleName = roleName;
         this.detailRole = detailRole;
         this.status = status;
         this.hireDt = hireDt;

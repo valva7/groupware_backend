@@ -45,13 +45,13 @@ public class TokenProvider {
         Claims claims = Jwts.claims();
         claims.put("sub", String.valueOf(member.getInfo().getMemberId()));
         claims.put("name", member.getInfo().getMemberName());
-        String role = member.getInfo().getRole();
+        Long role = member.getInfo().getRole();
         claims.put("role", role);
         claims.put("profileImageUrl", member.getInfo().getProfileImageUrl());
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(String.valueOf(member.getId()))
+                .setSubject(String.valueOf(member.getInfo().getMemberId()))
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, key)
@@ -81,7 +81,7 @@ public class TokenProvider {
 
         // Claims 객체 생성 및 값 설정
         Claims claims = Jwts.claims()
-            .setSubject(member.getId().toString());
+            .setSubject(member.getInfo().getMemberId());
 
         return Jwts.builder()
             .setClaims(claims)

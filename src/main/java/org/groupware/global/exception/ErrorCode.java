@@ -15,6 +15,7 @@ public enum ErrorCode {
 
     // 부서 관련
     NOT_EXIST_DEPARTMENT(2001, "error.department.not_exist"),
+    NOT_EXIST_DEPARTMENT_MEMBER(2001, "error.department.not_exist"),
 
     // 기타
     S3FILE_UPLOAD_FAILED(9000, "error.file.upload.failed")

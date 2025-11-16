@@ -27,4 +27,7 @@ public class RoleEntity extends TimeBaseEntity {
 
     @Column(nullable = false)
     private String roleName;
+
+    @Column(nullable = false)
+    private String description;
 }

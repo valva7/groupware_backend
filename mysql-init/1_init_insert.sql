@@ -20,11 +20,11 @@ INSERT INTO member (
 
 
 -- 부서 정보
-INSERT INTO department (id, parent_department_id, code, name, description, leader_id)
-VALUES(1, null, 'EXEC', '경영팀', '경영팀', null),
-      (2, null, 'DEV', '개발팀', '개발팀', null),
-      (3, 2, 'LEAD', '리더팀', '리더팀', null),
-      (4, 2, 'ENG', '엔지니어팀', '엔지니어팀', null);
+INSERT INTO department (parent_department_id, code, name, description, leader_id)
+VALUES( null, 'EXEC', '경영팀', '경영팀', null),
+      ( null, 'DEV', '개발팀', '개발팀', null),
+      ( 2, 'LEAD', '리더팀', '리더팀', null),
+      ( 2, 'ENG', '엔지니어팀', '엔지니어팀', null);
 
 -- ========================
 -- 세부 권한

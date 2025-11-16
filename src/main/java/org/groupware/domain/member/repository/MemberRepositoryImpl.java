@@ -21,7 +21,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     public MemberEntity saveMember(Member member){
         // 권한 설정
-        RoleEntity roleEntity = jpaRoleRepository.findByRoleName(member.getInfo().getRole()).orElseThrow(() -> new MemberException(ErrorCode.ALREADY_EXIST));
+        RoleEntity roleEntity = jpaRoleRepository.findById(member.getInfo().getRole()).orElseThrow(() -> new MemberException(ErrorCode.NO_EXIST_ROLE));
 
         MemberEntity memberEntity = new MemberEntity(member);
         memberEntity.setRole(roleEntity);
@@ -35,7 +35,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     public Member findMemberByMemberId(String memberId){
-        MemberEntity memberEntity = jpaMemberRepository.findByMemberId(memberId);
+        MemberEntity memberEntity = jpaMemberRepository.findByMemberId(memberId).orElse(null);
         return memberEntity == null ? null : memberEntity.toMember();
     }
 

@@ -12,12 +12,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.common.response.Response;
 import org.groupware.domain.auth.dto.req.CreateMemberReq;
+import org.groupware.domain.auth.dto.req.UpdateMemberReq;
 import org.groupware.domain.member.dto.req.MemberRes;
 import org.groupware.domain.member.service.MemberService;
 import org.groupware.global.principal.AuthPrincipal;
 import org.groupware.global.principal.MemberAuth;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,19 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final MemberService memberService;
-
-    @PostMapping("/create")
-    @Operation(
-        summary = "사용자 생성",
-        description = "사용자를 생성한다",
-        responses = {
-            @ApiResponse(responseCode = "200", description = "사용자 생성 성공")
-        }
-    )
-    public Response<Void> createMember(@Parameter(hidden = true) @AuthPrincipal MemberAuth user, @RequestBody @Valid CreateMemberReq req) {
-        memberService.createMember(req);
-        return Response.ok(null);
-    }
 
     @GetMapping
     @Operation(
@@ -57,6 +46,32 @@ public class MemberController {
     )
     public Response<MemberRes> getMember(@Parameter(hidden = true) @AuthPrincipal MemberAuth user, String memberId) {
         return Response.ok(memberService.getMember(memberId));
+    }
+
+    @PostMapping("/create")
+    @Operation(
+        summary = "사용자 생성",
+        description = "사용자를 생성한다",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "사용자 생성 성공")
+        }
+    )
+    public Response<Void> createMember(@Parameter(hidden = true) @AuthPrincipal MemberAuth user, @RequestBody @Valid CreateMemberReq req) {
+        memberService.saveMember(req);
+        return Response.ok(null);
+    }
+
+    @PutMapping("/update/manage")
+    @Operation(
+        summary = "사용자 수정",
+        description = "사용자를 수정한다",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "사용자 수정 성공")
+        }
+    )
+    public Response<Void> updateMember(@Parameter(hidden = true) @AuthPrincipal MemberAuth user, @RequestBody @Valid UpdateMemberReq req) {
+        memberService.updateMember(req);
+        return Response.ok(null);
     }
 
 }

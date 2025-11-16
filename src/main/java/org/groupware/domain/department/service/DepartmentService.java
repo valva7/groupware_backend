@@ -19,16 +19,14 @@ public class DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     @Transactional(readOnly = true)
-    public DepartmentListRes findDepartmentList() {
+    public List<Department> findDepartmentList() {
         Optional<List<DepartmentEntity>> departmentEntities = departmentRepository.findAllBy();
 
-        List<Department> departments = departmentEntities
+        return departmentEntities
                 .map(list -> list.stream()
                 .map(DepartmentEntity::toDepartment)
                 .toList())
             .orElse(Collections.emptyList());
-
-        return new DepartmentListRes(departments);
     }
 
 
