@@ -45,7 +45,7 @@ public class TokenProvider {
         Claims claims = Jwts.claims();
         claims.put("sub", String.valueOf(member.getInfo().getMemberId()));
         claims.put("name", member.getInfo().getMemberName());
-        Long role = member.getInfo().getRole();
+        String role = member.getInfo().getRoleName();
         claims.put("role", role);
         claims.put("profileImageUrl", member.getInfo().getProfileImageUrl());
 

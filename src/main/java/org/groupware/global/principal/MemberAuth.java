@@ -4,7 +4,7 @@ import org.groupware.domain.auth.model.DetailRole;
 
 public record MemberAuth(
     String memberId,
-    Long role,
+    String role,
     DetailRole detailRole
 ) {
 

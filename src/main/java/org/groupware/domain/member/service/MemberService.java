@@ -6,6 +6,7 @@ import org.groupware.domain.auth.dto.req.CreateMemberReq;
 import org.groupware.domain.auth.dto.req.UpdateMemberReq;
 import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.groupware.domain.auth.repository.JpaRoleRepository;
+import org.groupware.domain.department.model.entity.DepartmentEntity;
 import org.groupware.domain.department.model.entity.DepartmentMemberEntity;
 import org.groupware.domain.department.model.entity.DepartmentMemberId;
 import org.groupware.domain.department.repository.DepartmentRepository;
@@ -16,6 +17,7 @@ import org.groupware.domain.member.model.MemberInfo;
 import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.domain.member.repository.JpaMemberRepository;
 import org.groupware.domain.member.repository.MemberRepository;
+import org.groupware.global.exception.DepartmentException;
 import org.groupware.global.exception.ErrorCode;
 import org.groupware.global.exception.MemberException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -81,9 +83,13 @@ public class MemberService {
         // TODO: 메뉴 권한 INSERT
 
         // 직원 부서 INSERT
-        DepartmentMemberEntity departmentMemberEntity = new DepartmentMemberEntity();
+        DepartmentEntity department = departmentRepository.findById(req.department()).orElseThrow(() -> new DepartmentException(ErrorCode.NOT_EXIST_DEPARTMENT));
         DepartmentMemberId departmentMemberId = new DepartmentMemberId(newMemberEntity.getMemberId(), req.department());
+
+        DepartmentMemberEntity departmentMemberEntity = new DepartmentMemberEntity();
         departmentMemberEntity.setId(departmentMemberId);
+        departmentMemberEntity.setMember(newMemberEntity);
+        departmentMemberEntity.setDepartment(department);
 
         jpaDepartmentMemberRepository.save(departmentMemberEntity);
 

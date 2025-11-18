@@ -54,7 +54,7 @@ public class MemberEntity extends TimeBaseEntity {
     private String emergencyPhone; // 비상 연락자 연락처
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_name", columnDefinition = "VARCHAR(50)")
     private RoleEntity role;  // 권한
 
     @Column(name = "project_active_yn", nullable = false)
@@ -105,7 +105,6 @@ public class MemberEntity extends TimeBaseEntity {
                     , this.emergencyName
                     , this.emergencyPhone
                     , this.rankCd
-                    , role.getId()
                     , role.getRoleName()
                     , detailRole
                     , this.status

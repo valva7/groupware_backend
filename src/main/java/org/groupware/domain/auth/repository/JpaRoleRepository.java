@@ -4,9 +4,9 @@ import java.util.Optional;
 import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JpaRoleRepository extends JpaRepository<RoleEntity, Long> {
+public interface JpaRoleRepository extends JpaRepository<RoleEntity, String> {
 
-    Optional<RoleEntity> findById(int role);
+    Optional<RoleEntity> findById(String role);
 
     boolean existsByRoleName(String role);
 

@@ -21,11 +21,9 @@ import org.groupware.global.entity.TimeBaseEntity;
 @Builder
 @Table(name = "role")
 public class RoleEntity extends TimeBaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
+    @Id
+    @Column(nullable = false, columnDefinition = "VARCHAR(50)")
     private String roleName;
 
     @Column(nullable = false)

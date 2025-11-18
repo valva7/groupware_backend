@@ -1,30 +1,25 @@
 -- role 샘플 데이터
-insert into role(role_name, created_dt, updated_dt) values('ROLE_USER', now(), now());
-insert into role(role_name, created_dt, updated_dt) values('ROLE_ADMIN' ,now(), now());
+insert into role(role_name, description) values('ROLE_USER', '알반 사용자');
+insert into role(role_name, description) values('ROLE_ADMIN', '관리자');
 
 -- member 샘플 데이터
 INSERT INTO member (
-    member_id, member_name, rank_cd,
-    email, phone, address,
-    emergency_name, emergency_phone,
-    role_id, project_active_yn, status,
-    hire_dt, expiration_dt,
+    member_id, member_name, rank_cd, email, phone, address,
+    emergency_name, emergency_phone, role_name,
+    project_active_yn, status, hire_dt, expiration_dt,
     password, profile_image_url
-) VALUES
-      ('kimgleam', '김태욱', 'R002', 'kimgleam@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
-      ('eunHyukChoi', '최은혁', 'R002', '1@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
-      ('heeCheolShin', '신희철', 'R003', '2@example.com', '010-3456-7890', '서울시 송파구', '박응급', '010-7654-3210', 1, 1, 'ACTIVE', '2023-03-01', NULL, 'password3', 'https://example.com/profile3.png'),
-      ('dongGeonPark', '박동건', 'R002', '3@example.com', '010-2345-6789', '서울시 서초구', '이응급', '010-8765-4321', 1, 0, 'ACTIVE', '2023-02-01', NULL, 'password2', 'https://example.com/profile2.png'),
-      ('junHyukLee', '이준혁', 'R001', '4@example.com', '010-4567-8901', '서울시 강북구', '최응급', '010-6543-2109', 1, 0, 'INACTIVE', '2022-12-01', '2023-12-01', 'password4', 'https://example.com/profile4.png'),
-      ('namSooPark', '박남수', 'R002', '5@example.com', '010-5678-9012', '서울시 마포구', '정응급', '010-5432-1098', 1, 1, 'ACTIVE', '2023-04-01', NULL, 'password5', 'https://example.com/profile5.png');
-
+) VALUE
+    ('devkim', '김태욱', 'DR', 'kimgleam@example.com', '010-1111-2222', '서울 강남구',
+     '홍길동', '010-9999-8888', 'ROLE_ADMIN', 1, 'WORK', '2024-01-01', NULL,
+     'qwe1212!', NULL);
 
 -- 부서 정보
-INSERT INTO department (parent_department_id, code, name, description, leader_id)
-VALUES( null, 'EXEC', '경영팀', '경영팀', null),
-      ( null, 'DEV', '개발팀', '개발팀', null),
-      ( 2, 'LEAD', '리더팀', '리더팀', null),
-      ( 2, 'ENG', '엔지니어팀', '엔지니어팀', null);
+INSERT INTO department (parent_department_code, code, name, description, leader_id)
+VALUES (NULL, 'EXEC', '경영팀', '경영팀', NULL),
+       (NULL, 'DEV', '개발팀', '개발팀', NULL),
+       ('DEV', 'LEAD', '리더팀', '리더팀', NULL),
+       ('DEV', 'ENG', '엔지니어팀', '엔지니어팀', NULL);
+
 
 -- ========================
 -- 세부 권한

@@ -7,15 +7,15 @@ SET collation_connection = 'utf8mb4_unicode_ci';
 -- ROLE 테이블
 -- -------------------------------------------------------------------
 CREATE TABLE role (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    role_name VARCHAR(50) NOT NULL
+    role_name VARCHAR(50) PRIMARY KEY,
+    description VARCHAR(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- -------------------------------------------------------------------
 -- MEMBER 테이블
 -- -------------------------------------------------------------------
 CREATE TABLE member (
-    member_id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE,
+    member_id VARCHAR(255) PRIMARY KEY,
     member_name VARCHAR(255) NOT NULL,
     rank_cd VARCHAR(50),
 
@@ -26,7 +26,7 @@ CREATE TABLE member (
     emergency_name VARCHAR(50),
     emergency_phone VARCHAR(20),
 
-    role_id BIGINT,
+    role_name VARCHAR(50),
 
     project_active_yn TINYINT(1) NOT NULL DEFAULT 0,
     status VARCHAR(20) NOT NULL,
@@ -36,10 +36,11 @@ CREATE TABLE member (
     password VARCHAR(255) NOT NULL,
     profile_image_url VARCHAR(255),
 
-    CONSTRAINT fk_member_role FOREIGN KEY (role_id) REFERENCES role (id)
+    CONSTRAINT fk_member_role
+    FOREIGN KEY (role_name) REFERENCES role (role_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE INDEX idx_member_id ON member (member_id);
+
 
 -- -------------------------------------------------------------------
 -- DEPARTMENT 테이블
@@ -47,25 +48,26 @@ CREATE INDEX idx_member_id ON member (member_id);
 CREATE TABLE department (
     code VARCHAR(10) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    parent_department_code VARCHAR(10),  -- self-reference FK
-    leader_id VARCHAR(50),             -- MemberEntity PK 타입에 따라 조정
+    parent_department_code VARCHAR(10),   -- self-reference FK
+    leader_id VARCHAR(50),                -- MemberEntity PK 타입
     description VARCHAR(255),
     PRIMARY KEY (code)
-);
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
 
--- 인덱스
-CREATE INDEX idx_departmentId ON department (code);
-
--- FK 제약
+-- Self Reference FK: parent_department_code → department.code
 ALTER TABLE department
     ADD CONSTRAINT fk_department_parent
-        FOREIGN KEY (parent_department_id)
+        FOREIGN KEY (parent_department_code)
             REFERENCES department(code);
 
+-- Leader FK: leader_id → member.member_id
 ALTER TABLE department
     ADD CONSTRAINT fk_department_leader
         FOREIGN KEY (leader_id)
             REFERENCES member(member_id);
+
 
 
 

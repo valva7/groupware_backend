@@ -37,7 +37,7 @@ public record UpdateMemberReq(
     @Schema(description = "기본 권한", type = "String")
     @NotEmpty(message = "기본 권한은 필수입니다.")
     @ValidBaseRole
-    Integer baseRole,
+    String baseRole,
 
     @Schema(description = "세부 권한", type = "DetailRole")
     DetailRole detailRole

@@ -1,6 +1,8 @@
 package org.groupware.domain.department.model.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import org.groupware.domain.member.model.entity.MemberEntity;
 import org.groupware.global.entity.TimeBaseEntity;

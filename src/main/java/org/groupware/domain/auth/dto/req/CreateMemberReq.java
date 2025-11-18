@@ -62,7 +62,7 @@ public record CreateMemberReq(
     @Schema(description = "기본 권한", type = "String")
     @NotEmpty(message = "기본 권한은 필수입니다.")
     @ValidBaseRole
-    Long baseRole,
+    String baseRole,
 
     @Schema(description = "세부 권한", type = "DetailRole")
     DetailRole detailRole
