@@ -1,24 +1,27 @@
 -- role 샘플 데이터
-insert into role(role_name, description) values('ROLE_USER', '알반 사용자');
-insert into role(role_name, description) values('ROLE_ADMIN', '관리자');
+INSERT INTO roles (role_id, role_name, description) VALUES
+('ROLE_ADMIN', '시스템 관리자', '시스템 전체 기능과 설정에 접근할 수 있는 관리자 역할'),
+('ROLE_USER', '일반 사용자', '일반 사용자가 기본 기능을 사용할 수 있는 역할'),
+('ROLE_MANAGER', '인사 관리자', '팀 관리 및 승인 권한을 가진 인사 관리자 역할'),
+('ROLE_GUEST', '자산 관리자', '자산 관련 기능만 접근 가능한 제한된 역할');
+
 
 -- member 샘플 데이터
-INSERT INTO member (
-    member_id, member_name, rank_cd, email, phone, address,
-    emergency_name, emergency_phone, role_name,
-    project_active_yn, status, hire_dt, expiration_dt,
-    password, profile_image_url
-) VALUE
-    ('devkim', '김태욱', 'DR', 'kimgleam@example.com', '010-1111-2222', '서울 강남구',
-     '홍길동', '010-9999-8888', 'ROLE_ADMIN', 1, 'WORK', '2024-01-01', NULL,
-     'qwe1212!', NULL);
+INSERT INTO member (member_id, member_name, rank_cd, email, phone, address,emergency_name, emergency_phone,status, hire_dt, expiration_dt,password, profile_image_url) VALUES
+('devkim', '김태욱', 'DR', 'kimgleam@example.com', '010-1111-2222', '서울 강남구',     '홍길동', '010-9999-8888', 'WORK', '2024-01-01', NULL,'qwe1212!', NULL);
+
+
+-- member_roles 샘플 데이터
+INSERT INTO member_roles (member_id, role_id) VALUES
+('devkim', 'ROLE_ADMIN');
+
 
 -- 부서 정보
-INSERT INTO department (parent_department_code, code, name, description, leader_id)
-VALUES (NULL, 'EXEC', '경영팀', '경영팀', NULL),
-       (NULL, 'DEV', '개발팀', '개발팀', NULL),
-       ('DEV', 'LEAD', '리더팀', '리더팀', NULL),
-       ('DEV', 'ENG', '엔지니어팀', '엔지니어팀', NULL);
+INSERT INTO department (parent_department_code, code, name, description, leader_id) VALUES
+(NULL, 'EXEC', '경영팀', '경영팀', NULL),
+(NULL, 'DEV', '개발팀', '개발팀', NULL),
+('DEV', 'LEAD', '리더팀', '리더팀', NULL),
+('DEV', 'ENG', '엔지니어팀', '엔지니어팀', NULL);
 
 
 -- ========================
@@ -192,72 +195,89 @@ VALUES
 
 
 
--- 상위 메뉴: 전자결재
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES (1, NULL, '전자결재', '/approval', 'fa-file-signature', 1, 'USER', TRUE);
+-- M + 메뉴 약자 + 화면 종류 (DT, LT 등)
+-- 상위 메뉴
+-- =========================
+-- 메뉴 INSERT (상위 메뉴)
+-- =========================
+INSERT INTO menu (menu_id, menu_name, path, parent_id) VALUES
+                                                           ('MDASHBD', '대시보드', '/dashboard', NULL),
+                                                           ('MAPPROV', '전자결재', '#', NULL),
+                                                           ('MPROJMG', '프로젝트 관리', '#', NULL),
+                                                           ('MVOTEMN', '투표', '/votes', NULL),
+                                                           ('MORGNMG', '조직 관리', '#', NULL),
+                                                           ('MCOMMSN', '커뮤니케이션', '#', NULL),
+                                                           ('MADMNMN', '관리자 메뉴', '#', NULL),
+                                                           ('MPROFIL', '내 정보', '/profile', NULL);
 
--- 하위 메뉴: 전자결재
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES
-    (2, 1, '기안함', '/approval/drafts', NULL, 1, 'USER', TRUE),
-    (3, 1, '결재 목록', '/approval/list', NULL, 2, 'USER', TRUE);
+-- =========================
+-- 메뉴 INSERT (하위 메뉴)
+-- =========================
+INSERT INTO menu (menu_id, menu_name, path, parent_id) VALUES
+                                                           ('MDRAFT1', '기안함', '/approval/draft', 'MAPPROV'),
+                                                           ('MLIST01', '결재 목록', '/approval/list', 'MAPPROV'),
+                                                           ('MPROJ01', '프로젝트', '/projects', 'MPROJMG'),
+                                                           ('MRESR01', '인력 배정', '/projects/resources', 'MPROJMG'),
+                                                           ('MDEPT01', '부서 목록', '/organization/departments', 'MORGNMG'),
+                                                           ('MMEMB01', '직원 현황', '/organization/members', 'MORGNMG'),
+                                                           ('MBOARD1', '게시판', '/board', 'MCOMMSN'),
+                                                           ('MWIKI01', '사내 위키', '/wiki', 'MCOMMSN'),
+                                                           ('MMANUAL', '메뉴얼', '/manual', 'MCOMMSN'),
+                                                           ('MADAPRV1', '전자결재 관리', '/admin/approval', 'MADMNMN'),
+                                                           ('MADPOST1', '게시물 관리', '/admin/posts', 'MADMNMN'),
+                                                           ('MADMEMP1', '직원 생성/관리', '/admin/members', 'MADMNMN'),
+                                                           ('MADMORG1', '조직 관리', '/admin/organization', 'MADMNMN'),
+                                                           ('MADAST01', '비품/자산 관리', '/admin/assets', 'MADMNMN'),
+                                                           ('MADMAPP2', '결재선 관리', '/admin/approval-lines', 'MADMNMN'),
+                                                           ('MADMCC01', '공통 코드 관리', '/admin/common-codes', 'MADMNMN');
 
+-- =========================
+-- 화면 INSERT (screen)
+-- =========================
+INSERT INTO screen (screen_id, screen_name, path, menu_id) VALUES
+-- Dashboard
+('SDASHBD', '대시보드', '/dashboard', 'MDASHBD'),
 
--- 상위 메뉴: 프로젝트 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES (4, NULL, '프로젝트 관리', '/projects', 'fa-project-diagram', 2, 'USER', TRUE);
+-- Approval screens
+('SADRAF1', '기안함', '/approval/draft', 'MDRAFT1'),
+('SALIST01', '결재 목록', '/approval/list', 'MLIST01'),
+('SADETAIL', '결재 상세', '/approval/detail/:id', 'MLIST01'),
 
--- 하위 메뉴: 프로젝트 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES
-    (5, 4, '프로젝트', '/projects/list', NULL, 1, 'USER', TRUE),
-    (6, 4, '인력배정', '/projects/members', NULL, 2, 'USER', TRUE);
+-- Project screens
+('SPROJ01', '프로젝트', '/projects', 'MPROJ01'),
+('SPROJCR', '프로젝트 생성', '/projects/create', 'MPROJ01'),
+('SPROJDT', '프로젝트 상세', '/projects/detail/:id', 'MPROJ01'),
+('SRESR01', '인력 배정', '/projects/resources', 'MRESR01'),
 
+-- Vote screens
+('SVOTE01', '투표 목록', '/votes', 'MVOTEMN'),
+('SVOTECR', '투표 생성', '/votes/create', 'MVOTEMN'),
 
--- 상위 메뉴: 투표
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES (7, NULL, '투표', '/votes', 'fa-poll', 3, 'USER', TRUE);
+-- Organization screens
+('SDEPT01', '부서 목록', '/organization/departments', 'MDEPT01'),
+('SMEMB01', '직원 현황', '/organization/members', 'MMEMB01'),
 
+-- Communication screens
+('SBOARD1', '게시판', '/board', 'MBOARD1'),
+('SPOSTCR1', '게시물 생성', '/board/create', 'MBOARD1'),
+('SPOSTDT1', '게시물 상세', '/board/detail/:id', 'MBOARD1'),
+('SWIKI01', '사내 위키', '/wiki', 'MWIKI01'),
+('SWIKICR1', '위키 생성', '/wiki/create', 'MWIKI01'),
+('SWIKIDT1', '위키 상세', '/wiki/detail/:id', 'MWIKI01'),
+('SMANUAL1', '메뉴얼', '/manual', 'MMANUAL'),
+('SMANUCR1', '메뉴얼 생성', '/manual/create', 'MMANUAL'),
+('SMANUDT1', '메뉴얼 상세', '/manual/detail/:id', 'MMANUAL'),
 
--- 상위 메뉴: 조직 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES (8, NULL, '조직 관리', '/organization', 'fa-sitemap', 4, 'USER', TRUE);
+-- Admin screens
+('SADMAPRV', '전자결재 관리', '/admin/approval', 'MADAPRV1'),
+('SADMPOST', '게시물 관리', '/admin/posts', 'MADPOST1'),
+('SPOSTDT2', '게시물 상세', '/admin/posts/detail/:id', 'MADPOST1'),
+('SPOSTEDT', '게시물 수정', '/admin/posts/edit/:id', 'MADPOST1'),
+('SADMMEMB', '직원 생성/관리', '/admin/members', 'MADMEMP1'),
+('SADMORGN', '조직 관리', '/admin/organization', 'MADMORG1'),
+('SADMASST', '비품/자산 관리', '/admin/assets', 'MADAST01'),
+('SADMALIN', '결재선 관리', '/admin/approval-lines', 'MADMAPP2'),
+('SADMCC01', '공통 코드 관리', '/admin/common-codes', 'MADMCC01'),
 
--- 하위 메뉴: 조직 관리
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES
-    (9, 8, '부서 목록', '/organization/departments', NULL, 1, 'USER', TRUE),
-    (10, 8, '직원 현황', '/organization/employees', NULL, 2, 'USER', TRUE);
-
-
--- 상위 메뉴: 커뮤니케이션
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES (11, NULL, '커뮤니케이션', '/communication', 'fa-comments', 5, 'USER', TRUE);
-
--- 하위 메뉴: 커뮤니케이션
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES
-    (12, 11, '게시판', '/communication/board', NULL, 1, 'USER', TRUE),
-    (13, 11, '사내 위키', '/communication/wiki', NULL, 2, 'USER', TRUE),
-    (14, 11, '메뉴얼', '/communication/manual', NULL, 3, 'USER', TRUE);
-
-
--- 상위 메뉴: 관리자 메뉴
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES (15, NULL, '관리자 메뉴', '/admin', 'fa-user-shield', 6, 'ADMIN', TRUE);
-
--- 하위 메뉴: 관리자 메뉴
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES
-    (16, 15, '전자결재 관리', '/admin/approval', NULL, 1, 'ADMIN', TRUE),
-    (17, 15, '게시물 관리', '/admin/posts', NULL, 2, 'ADMIN', TRUE),
-    (18, 15, '직원 생성/관리', '/admin/employees', NULL, 3, 'ADMIN', TRUE),
-    (19, 15, '조직 관리', '/admin/org', NULL, 4, 'ADMIN', TRUE),
-    (20, 15, '비품/자산 관리', '/admin/assets', NULL, 5, 'ADMIN', TRUE),
-    (21, 15, '결재선 관리', '/admin/approval-line', NULL, 6, 'ADMIN', TRUE),
-    (22, 15, '공통 코드 관리', '/admin/common-codes', NULL, 7, 'ADMIN', TRUE);
-
-
--- 상위 메뉴: 내 정보
-INSERT INTO menu (id, parent_id, name, path, icon, sequence, base_role, active_yn)
-VALUES (23, NULL, '내 정보', '/my-info', 'fa-user', 7, 'USER', TRUE);
+-- Profile screen
+('SPROFIL', '내 정보', '/profile', 'MPROFIL');

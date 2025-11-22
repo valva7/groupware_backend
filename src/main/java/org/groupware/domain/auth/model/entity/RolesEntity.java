@@ -2,8 +2,6 @@ package org.groupware.domain.auth.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,20 +18,23 @@ import org.groupware.global.entity.TimeBaseEntity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "role")
-public class RoleEntity extends TimeBaseEntity {
+@Table(name = "roles")
+public class RolesEntity extends TimeBaseEntity {
 
     @Id
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
-    private String roleName;
+    private String roleId;
 
     @Column(nullable = false)
+    private String roleName;
+
+    @Column
     private String description;
 
     public BaseRole toRole() {
         return BaseRole.builder()
+            .roleId(this.roleId)
             .roleName(this.roleName)
-            .description(this.description)
             .build();
     }
 }

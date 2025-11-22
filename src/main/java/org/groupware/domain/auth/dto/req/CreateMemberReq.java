@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
-import org.groupware.domain.auth.model.DetailRole;
+import java.util.List;
 import org.groupware.global.annotation.ValidBaseRole;
 import org.groupware.global.annotation.ValidDepartment;
 import org.groupware.global.annotation.ValidRank;
@@ -59,12 +59,9 @@ public record CreateMemberReq(
     // ========================
     // 권한 정보
     // ========================
-    @Schema(description = "기본 권한", type = "String")
+    @Schema(description = "기본 권한", type = "List")
     @NotEmpty(message = "기본 권한은 필수입니다.")
-    @ValidBaseRole
-    String baseRole,
+    List<String> roles
 
-    @Schema(description = "세부 권한", type = "DetailRole")
-    DetailRole detailRole
 
 ) {}

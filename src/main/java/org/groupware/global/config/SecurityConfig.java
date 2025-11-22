@@ -1,6 +1,7 @@
 package org.groupware.global.config;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.domain.auth.service.CustomMemberDetailsService;
 import org.groupware.domain.auth.service.TokenProvider;
@@ -22,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private static final String[] ALL_ALLOWLIST = {
@@ -48,19 +50,6 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final TokenProvider tokenProvider;
 
-    public SecurityConfig(
-        MemberRepository repository,
-        CustomMemberDetailsService customMemberDetailsService,
-        CustomAuthenticationEntryPoint authenticationEntryPoint,
-        CustomAccessDeniedHandler accessDeniedHandler,
-        TokenProvider tokenProvider
-    ) {
-        this.repository = repository;
-        this.customMemberDetailsService = customMemberDetailsService;
-        this.authenticationEntryPoint = authenticationEntryPoint;
-        this.accessDeniedHandler = accessDeniedHandler;
-        this.tokenProvider = tokenProvider;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)  throws Exception{

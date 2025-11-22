@@ -2,18 +2,21 @@ package org.groupware.domain.member.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.groupware.domain.auth.dto.req.UpdateMemberReq;
-import org.groupware.domain.auth.model.DetailRole;
-import org.groupware.domain.auth.model.entity.RoleEntity;
+import org.groupware.domain.auth.model.entity.RolesEntity;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.model.MemberInfo;
 import org.groupware.global.enums.MemberStatus;
@@ -53,15 +56,16 @@ public class MemberEntity extends TimeBaseEntity {
     @Column(name = "emergency_phone", length = 20)
     private String emergencyPhone; // 비상 연락자 연락처
 
-    @ManyToOne
-    @JoinColumn(name = "role_name", columnDefinition = "VARCHAR(50)")
-    private RoleEntity role;  // 권한
-
-    @Column(name = "project_active_yn", nullable = false)
-    private Boolean projectActiveYn; // 프로젝트 관리 권한 여부
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "member_roles",
+        joinColumns = @JoinColumn(name = "member_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<RolesEntity> roles = new ArrayList<>();
 
     @Column(length = 20, nullable = false)
-    private String status; // 재직 상태 (예: ACTIVE, LEAVE, RETIRED)
+    private String status; // 재직 상태
 
     @Column(name = "hire_dt", nullable = false)
     private LocalDate hireDt; // 입사일
@@ -80,7 +84,6 @@ public class MemberEntity extends TimeBaseEntity {
         this.rankCd = member.getInfo().getRank();
         this.email = member.getInfo().getEmail();
         this.phone = member.getInfo().getPhone();
-        this.projectActiveYn = member.getInfo().getDetailRole().getProjectActiveYn();
         this.status = MemberStatus.WORK.getCode();
         this.hireDt = member.getInfo().getHireDt();
         this.password = member.getInfo().getPassword();
@@ -88,9 +91,9 @@ public class MemberEntity extends TimeBaseEntity {
     }
 
     public Member toMember() {
-        DetailRole detailRole = DetailRole.builder()
-            .projectActiveYn(this.projectActiveYn)
-            .build();
+        List<String> roles = this.roles.stream()
+            .map(RolesEntity::getRoleId)
+            .toList();
 
         return Member.builder()
             .info(
@@ -105,8 +108,7 @@ public class MemberEntity extends TimeBaseEntity {
                     , this.emergencyName
                     , this.emergencyPhone
                     , this.rankCd
-                    , role.getRoleName()
-                    , detailRole
+                    , roles
                     , this.status
                     , this.hireDt
                 )
@@ -117,7 +119,6 @@ public class MemberEntity extends TimeBaseEntity {
     public void update(UpdateMemberReq req) {
         this.rankCd = req.rank();
         this.status = req.status();
-        this.projectActiveYn = req.detailRole().getProjectActiveYn();
     }
 
 }

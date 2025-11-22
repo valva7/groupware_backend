@@ -2,7 +2,7 @@ package org.groupware.domain.auth.dto.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
-import org.groupware.domain.auth.model.DetailRole;
+import java.util.List;
 import org.groupware.global.annotation.ValidBaseRole;
 import org.groupware.global.annotation.ValidDepartment;
 import org.groupware.global.annotation.ValidRank;
@@ -37,10 +37,7 @@ public record UpdateMemberReq(
     @Schema(description = "기본 권한", type = "String")
     @NotEmpty(message = "기본 권한은 필수입니다.")
     @ValidBaseRole
-    String baseRole,
-
-    @Schema(description = "세부 권한", type = "DetailRole")
-    DetailRole detailRole
+    List<String> roles
 
 ) {
 

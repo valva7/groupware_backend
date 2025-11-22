@@ -1,40 +1,52 @@
 package org.groupware.domain.common.model.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-import org.groupware.global.entity.TimeBaseEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.groupware.domain.auth.model.entity.RolesEntity;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
 @Table(name = "menu")
-public class MenuEntity extends TimeBaseEntity {
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class MenuEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // PK
+    private String menuId;
 
-    // 상위 메뉴 (self-reference)
+    @Column(nullable = false)
+    private String menuName;      // 메뉴 이름
+
+    @Column(nullable = false)
+    private String path;      // 프론트 라우팅 경로
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private MenuEntity parent;
 
-    @Column(nullable = false, length = 100)
-    private String name; // 메뉴명
+    @OneToMany(mappedBy = "parent")
+    private List<MenuEntity> children = new ArrayList<>();
 
-    @Column(length = 200)
-    private String path; // 라우팅 경로
+    @ManyToMany
+    @JoinTable(
+            name = "menu_roles",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<RolesEntity> allowedRoles = new ArrayList<>();
 
-    @Column(length = 100)
-    private String icon; // 아이콘
-
-    @Column(nullable = false)
-    private Integer sequence; // 노출 순서
-
-    @Column(nullable = false, length = 100)
-    private String baseRole; // 기본 권한
-
-    @Column(name = "active_yn", nullable = false)
-    private Boolean activeYn; // 사용 여부
+    @OneToMany(mappedBy = "menu")
+    private List<ScreenEntity> screenEntities = new ArrayList<>();
 }

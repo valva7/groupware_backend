@@ -14,8 +14,8 @@ public class RoleRepositoryImpl implements RoleRepository{
     public List<BaseRole> findRoleList() {
         return jpaRoleRepository.findAll().stream()
                 .map(entity -> BaseRole.builder()
+                        .roleId(entity.getRoleId())
                         .roleName(entity.getRoleName())
-                        .description(entity.getDescription())
                         .build()
                 )
                 .toList();

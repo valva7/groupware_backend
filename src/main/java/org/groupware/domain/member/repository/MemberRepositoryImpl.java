@@ -1,6 +1,7 @@
 package org.groupware.domain.member.repository;
 
-import org.groupware.domain.auth.model.entity.RoleEntity;
+import java.util.List;
+import org.groupware.domain.auth.model.entity.RolesEntity;
 import org.groupware.domain.auth.repository.JpaRoleRepository;
 import org.groupware.global.exception.ErrorCode;
 import org.springframework.stereotype.Repository;
@@ -21,10 +22,10 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     public MemberEntity saveMember(Member member){
         // 권한 설정
-        RoleEntity roleEntity = jpaRoleRepository.findById(member.getInfo().getRoleName()).orElseThrow(() -> new MemberException(ErrorCode.NO_EXIST_ROLE));
+        List<RolesEntity> rolesEntities = jpaRoleRepository.findAllById(member.getInfo().getRoles());
 
         MemberEntity memberEntity = new MemberEntity(member);
-        memberEntity.setRole(roleEntity);
+        memberEntity.getRoles().addAll(rolesEntities);
 
         return jpaMemberRepository.save(memberEntity);
     }

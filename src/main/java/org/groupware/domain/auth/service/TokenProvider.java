@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import java.util.Date;
+import java.util.List;
 import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.domain.member.model.Member;
@@ -45,8 +46,8 @@ public class TokenProvider {
         Claims claims = Jwts.claims();
         claims.put("sub", String.valueOf(member.getInfo().getMemberId()));
         claims.put("name", member.getInfo().getMemberName());
-        String role = member.getInfo().getRoleName();
-        claims.put("role", role);
+        List<String> roles = member.getInfo().getRoles();
+        claims.put("roles", roles);
         claims.put("profileImageUrl", member.getInfo().getProfileImageUrl());
 
         return Jwts.builder()

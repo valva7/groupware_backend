@@ -1,8 +1,8 @@
 package org.groupware.domain.member.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import lombok.Getter;
-import org.groupware.domain.auth.model.DetailRole;
 
 @Getter
 public class MemberInfo {
@@ -23,8 +23,7 @@ public class MemberInfo {
     private final String rank;
 
     // 권한
-    private final String roleName;
-    private final DetailRole detailRole;
+    private final List<String> roles;
 
     // 재직 상태
     private final String status;
@@ -35,13 +34,16 @@ public class MemberInfo {
 
     // 회원 생성
     public MemberInfo(String memberId, String memberName, String email, String phone, String password,
-                        String rank, String role, DetailRole detailRole, LocalDate hireDt)
+                        String rank, List<String> roles, LocalDate hireDt)
     {
 
         if(memberId == null || memberId.isEmpty()){
             throw new IllegalArgumentException();
         }
         if(memberName == null || memberName.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        if(roles == null || roles.isEmpty()){
             throw new IllegalArgumentException();
         }
 
@@ -55,8 +57,7 @@ public class MemberInfo {
         this.emergencyName = null;
         this.emergencyPhone = null;
         this.rank = rank;
-        this.roleName = role;
-        this.detailRole = detailRole;
+        this.roles = roles;
         this.status = null;
         this.hireDt = hireDt;
     }
@@ -64,7 +65,7 @@ public class MemberInfo {
     // toMember
     public MemberInfo(String memberId, String memberName, String email, String phone, String address,
                         String password, String profileImageUrl,String emergencyName, String emergencyPhone,
-                        String rank, String roleName, DetailRole detailRole, String status, LocalDate hireDt)
+                        String rank, List<String> roles, String status, LocalDate hireDt)
     {
 
         if(memberId == null || memberId.isEmpty()){
@@ -84,8 +85,7 @@ public class MemberInfo {
         this.emergencyName = emergencyName;
         this.emergencyPhone = emergencyPhone;
         this.rank = rank;
-        this.roleName = roleName;
-        this.detailRole = detailRole;
+        this.roles = roles;
         this.status = status;
         this.hireDt = hireDt;
     }

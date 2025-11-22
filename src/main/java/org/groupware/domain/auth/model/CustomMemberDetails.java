@@ -1,7 +1,6 @@
 package org.groupware.domain.auth.model;
 
 import java.util.Collection;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,9 @@ public class CustomMemberDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String role = member.getInfo().getRoleName();
-        return List.of(new SimpleGrantedAuthority(role));
+        return member.getInfo().getRoles().stream()
+            .map(SimpleGrantedAuthority::new)
+            .toList();
     }
 
     @Override

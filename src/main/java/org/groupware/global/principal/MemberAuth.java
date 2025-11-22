@@ -1,11 +1,10 @@
 package org.groupware.global.principal;
 
-import org.groupware.domain.auth.model.DetailRole;
+import java.util.List;
 
 public record MemberAuth(
     String memberId,
-    String role,
-    DetailRole detailRole
+    List<String> roles
 ) {
 
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class BaseRole {
 
+    private String roleId;
     private String roleName;
-    private String description;
 
 }

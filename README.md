@@ -361,7 +361,7 @@ public class MemberEntity {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private RoleEntity roleEntity;
+    private RoleEntity rolesEntity;
 }
 ```
 

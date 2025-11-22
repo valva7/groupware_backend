@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 import lombok.RequiredArgsConstructor;
 import org.groupware.domain.auth.dto.req.CreateMemberReq;
 import org.groupware.domain.auth.dto.req.UpdateMemberReq;
-import org.groupware.domain.auth.model.entity.RoleEntity;
+import org.groupware.domain.auth.model.entity.RolesEntity;
 import org.groupware.domain.auth.repository.JpaRoleRepository;
 import org.groupware.domain.department.model.entity.DepartmentEntity;
 import org.groupware.domain.department.model.entity.DepartmentMemberEntity;
@@ -72,8 +72,7 @@ public class MemberService {
             req.phone(),
             encodedPassword,
             req.rank(),
-            req.baseRole(),
-            req.detailRole(),
+            req.roles(),
             req.hireDt()
         );
 
@@ -125,9 +124,9 @@ public class MemberService {
         jpaMemberRepository.findByMemberId(req.memberId())
             .ifPresentOrElse(
                 memberEntity -> {
-                        RoleEntity roleEntity = jpaRoleRepository.findById(req.baseRole()).orElseThrow(() -> new MemberException(ErrorCode.NO_EXIST_ROLE));
-                        memberEntity.setRole(roleEntity);
-                        memberEntity.update(req);
+//                        RolesEntity rolesEntity = jpaRoleRepository.findById(req.roles()).orElseThrow(() -> new MemberException(ErrorCode.NO_EXIST_ROLE));
+//                        memberEntity.setRole(rolesEntity);
+//                        memberEntity.update(req);
                     },
                 () -> {throw new MemberException(ErrorCode.NO_EXIST_MEMBER);}
             );

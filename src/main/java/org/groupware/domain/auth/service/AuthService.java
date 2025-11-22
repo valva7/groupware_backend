@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.domain.auth.dto.res.LoginTokenRes;
 import org.groupware.domain.auth.model.BaseRole;
-import org.groupware.domain.auth.model.entity.RoleEntity;
 import org.groupware.domain.auth.repository.JpaRoleRepository;
 import org.groupware.domain.auth.repository.RoleRepository;
 import org.groupware.domain.member.model.Member;
