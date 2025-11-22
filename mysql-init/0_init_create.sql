@@ -105,8 +105,9 @@ ALTER TABLE department_member
 CREATE TABLE menu (
     menu_id     VARCHAR(255) PRIMARY KEY,
     menu_name   VARCHAR(255) NOT NULL,
-    path        VARCHAR(255) NOT NULL,
+    sequence    INT NOT NULL,
     parent_id   VARCHAR(255),
+    path        VARCHAR(255) NOT NULL,
 
     FOREIGN KEY (parent_id) REFERENCES menu(menu_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;;

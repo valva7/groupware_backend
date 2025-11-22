@@ -32,6 +32,9 @@ public class MenuEntity {
     @Column(nullable = false)
     private String path;      // 프론트 라우팅 경로
 
+    @Column(nullable = false)
+    private Integer sequence;      // 정렬 순서
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private MenuEntity parent;
