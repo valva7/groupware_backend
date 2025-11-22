@@ -2,18 +2,18 @@ package org.groupware.global.annotation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.groupware.domain.department.repository.DepartmentRepository;
+import org.groupware.domain.department.repository.JpaDepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DepartmentCodeValidator implements ConstraintValidator<ValidDepartment, String> {
 
-    private final DepartmentRepository departmentRepository;
+    private final JpaDepartmentRepository jpaDepartmentRepository;
 
     @Autowired
-    public DepartmentCodeValidator(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
+    public DepartmentCodeValidator(JpaDepartmentRepository jpaDepartmentRepository) {
+        this.jpaDepartmentRepository = jpaDepartmentRepository;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class DepartmentCodeValidator implements ConstraintValidator<ValidDepartm
         }
 
         // 'DEPT' 그룹 코드 안에 value가 있는지 확인
-        return departmentRepository.existsByCode(departmentCode);
+        return jpaDepartmentRepository.existsByCode(departmentCode);
     }
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.groupware.domain.auth.dto.req.LoginReq;
+import org.groupware.domain.auth.dto.res.BaseRoleRes;
 import org.groupware.global.exception.InvalidJwtException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,6 +90,18 @@ public class AuthController {
         }
 
         return Response.ok(new NewAccessTokenRes(newAccessToken));
+    }
+
+    @GetMapping("/role")
+    @Operation(
+        summary = "권한 목록 조회",
+        description = "권한 목록을 조회한다.",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "권한 목록 조회 성공", content = @Content(schema = @Schema(implementation = BaseRoleRes.class)))
+        }
+    )
+    public Response<BaseRoleRes> getRoleList() {
+        return Response.ok(new BaseRoleRes(authService.findRoleList()));
     }
 
 }

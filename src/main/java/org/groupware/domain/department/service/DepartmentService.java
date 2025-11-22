@@ -5,10 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.groupware.domain.department.dto.res.DepartmentListRes;
 import org.groupware.domain.department.model.Department;
 import org.groupware.domain.department.model.entity.DepartmentEntity;
-import org.groupware.domain.department.repository.DepartmentRepository;
+import org.groupware.domain.department.repository.JpaDepartmentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class DepartmentService {
 
-    private final DepartmentRepository departmentRepository;
+    private final JpaDepartmentRepository jpaDepartmentRepository;
 
     @Transactional(readOnly = true)
     public List<Department> findDepartmentList() {
-        Optional<List<DepartmentEntity>> departmentEntities = departmentRepository.findAllBy();
+        Optional<List<DepartmentEntity>> departmentEntities = jpaDepartmentRepository.findAllBy();
 
         return departmentEntities
                 .map(list -> list.stream()

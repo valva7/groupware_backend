@@ -9,7 +9,7 @@ import org.groupware.domain.auth.repository.JpaRoleRepository;
 import org.groupware.domain.department.model.entity.DepartmentEntity;
 import org.groupware.domain.department.model.entity.DepartmentMemberEntity;
 import org.groupware.domain.department.model.entity.DepartmentMemberId;
-import org.groupware.domain.department.repository.DepartmentRepository;
+import org.groupware.domain.department.repository.JpaDepartmentRepository;
 import org.groupware.domain.department.repository.JpaDepartmentMemberRepository;
 import org.groupware.domain.member.dto.req.MemberRes;
 import org.groupware.domain.member.model.Member;
@@ -30,7 +30,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final JpaMemberRepository jpaMemberRepository;
-    private final DepartmentRepository departmentRepository;
+    private final JpaDepartmentRepository jpaDepartmentRepository;
     private final JpaRoleRepository jpaRoleRepository;
     private final JpaDepartmentMemberRepository jpaDepartmentMemberRepository;
 
@@ -83,7 +83,7 @@ public class MemberService {
         // TODO: 메뉴 권한 INSERT
 
         // 직원 부서 INSERT
-        DepartmentEntity department = departmentRepository.findById(req.department()).orElseThrow(() -> new DepartmentException(ErrorCode.NOT_EXIST_DEPARTMENT));
+        DepartmentEntity department = jpaDepartmentRepository.findById(req.department()).orElseThrow(() -> new DepartmentException(ErrorCode.NOT_EXIST_DEPARTMENT));
         DepartmentMemberId departmentMemberId = new DepartmentMemberId(newMemberEntity.getMemberId(), req.department());
 
         DepartmentMemberEntity departmentMemberEntity = new DepartmentMemberEntity();

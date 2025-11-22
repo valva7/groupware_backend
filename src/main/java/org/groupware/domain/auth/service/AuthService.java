@@ -1,7 +1,13 @@
 package org.groupware.domain.auth.service;
 
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.groupware.domain.auth.dto.res.LoginTokenRes;
+import org.groupware.domain.auth.model.BaseRole;
+import org.groupware.domain.auth.model.entity.RoleEntity;
+import org.groupware.domain.auth.repository.JpaRoleRepository;
+import org.groupware.domain.auth.repository.RoleRepository;
 import org.groupware.domain.member.model.Member;
 import org.groupware.domain.member.repository.MemberRepository;
 import org.groupware.domain.auth.dto.req.LoginReq;
@@ -13,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final TokenProvider tokenProvider;
@@ -20,13 +27,8 @@ public class AuthService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final FcmPushRepository fcmPushRepository;
-
-    public AuthService(TokenProvider tokenProvider, MemberRepository memberRepository,PasswordEncoder passwordEncoder, FcmPushRepository fcmPushRepository) {
-        this.tokenProvider = tokenProvider;
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.fcmPushRepository = fcmPushRepository;
-    }
+    private final JpaRoleRepository jpaRoleRepository;
+    private final RoleRepository roleRepository;
 
 
     /**
@@ -54,6 +56,10 @@ public class AuthService {
         fcmPushRepository.firebaseTokenSave(member, req.fcmToken());
 
         return new LoginTokenRes(accessToken, refreshToken);
+    }
+
+    public List<BaseRole> findRoleList() {
+        return roleRepository.findRoleList();
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.groupware.domain.department.model.entity.DepartmentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DepartmentRepository extends JpaRepository<DepartmentEntity, String> {
+public interface JpaDepartmentRepository extends JpaRepository<DepartmentEntity, String> {
 
     boolean existsByCode(String departmentCode);
 

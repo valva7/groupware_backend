@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.groupware.domain.auth.model.BaseRole;
 import org.groupware.global.entity.TimeBaseEntity;
 
 @Entity
@@ -28,4 +29,11 @@ public class RoleEntity extends TimeBaseEntity {
 
     @Column(nullable = false)
     private String description;
+
+    public BaseRole toRole() {
+        return BaseRole.builder()
+            .roleName(this.roleName)
+            .description(this.description)
+            .build();
+    }
 }
