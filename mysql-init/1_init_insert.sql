@@ -196,43 +196,40 @@ VALUES
 
 
 -- M + 메뉴 약자 + 화면 종류 (DT, LT 등)
--- 상위 메뉴
 -- =========================
--- 메뉴 INSERT (상위 메뉴)
+-- 상위 메뉴 INSERT
 -- =========================
--- =========================
--- 메뉴 INSERT (상위 메뉴)
--- =========================
-INSERT INTO menu (menu_id, menu_name, path, parent_id, sequence) VALUES
-('MDASHBD', '대시보드', '/dashboard', NULL, 1),
-('MAPPROV', '전자결재', '#', NULL, 2),
-('MPROJMG', '프로젝트 관리', '#', NULL, 3),
-('MVOTEMN', '투표', '/votes', NULL, 4),
-('MORGNMG', '조직 관리', '#', NULL, 5),
-('MCOMMSN', '커뮤니케이션', '#', NULL, 6),
-('MADMNMN', '관리자 메뉴', '#', NULL, 7),
-('MPROFIL', '내 정보', '/profile', NULL, 8);
+INSERT INTO menu (menu_id, menu_name, path, sequence, active_yn, parent_id) VALUES
+('MDASHBD', '대시보드', '/dashboard', 1, 1, NULL),
+('MAPPROV', '전자결재', '#', 2, 1, NULL),
+('MPROJMG', '프로젝트 관리', '#', 3, 1, NULL),
+('MVOTEMN', '투표', '/votes', 4, 1, NULL),
+('MORGNMG', '조직 관리', '#', 5, 1, NULL),
+('MCOMMSN', '커뮤니케이션', '#', 6, 1, NULL),
+('MADMNMN', '관리자 메뉴', '#', 7, 1, NULL),
+('MPROFIL', '내 정보', '/profile', 8, 1, NULL);
 
 -- =========================
--- 메뉴 INSERT (하위 메뉴)
+-- 하위 메뉴 INSERT
 -- =========================
-INSERT INTO menu (menu_id, menu_name, path, parent_id, sequence) VALUES
-('MDRAFT1', '기안함', '/approval/draft', 'MAPPROV', 1),
-('MLIST01', '결재 목록', '/approval/list', 'MAPPROV', 2),
-('MPROJ01', '프로젝트', '/projects', 'MPROJMG', 1),
-('MRESR01', '인력 배정', '/projects/resources', 'MPROJMG', 2),
-('MDEPT01', '부서 목록', '/organization/departments', 'MORGNMG', 1),
-('MMEMB01', '직원 현황', '/organization/members', 'MORGNMG', 2),
-('MBOARD1', '게시판', '/board', 'MCOMMSN', 1),
-('MWIKI01', '사내 위키', '/wiki', 'MCOMMSN', 2),
-('MMANUAL', '메뉴얼', '/manual', 'MCOMMSN', 3),
-('MADAPRV1', '전자결재 관리', '/admin/approval', 'MADMNMN', 1),
-('MADPOST1', '게시물 관리', '/admin/posts', 'MADMNMN', 2),
-('MADMEMP1', '직원 생성/관리', '/admin/members', 'MADMNMN', 3),
-('MADMORG1', '조직 관리', '/admin/organization', 'MADMNMN', 4),
-('MADAST01', '비품/자산 관리', '/admin/assets', 'MADMNMN', 5),
-('MADMAPP2', '결재선 관리', '/admin/approval-lines', 'MADMNMN', 6),
-('MADMCC01', '공통 코드 관리', '/admin/common-codes', 'MADMNMN', 7);
+INSERT INTO menu (menu_id, menu_name, path, sequence, active_yn, parent_id) VALUES
+('MDRAFT1', '기안함', '/approval/draft', 1, 1, 'MAPPROV'),
+('MLIST01', '결재 목록', '/approval/list', 2, 1, 'MAPPROV'),
+('MPROJ01', '프로젝트', '/projects', 1, 1, 'MPROJMG'),
+('MRESR01', '인력 배정', '/projects/resources', 2, 1, 'MPROJMG'),
+('MDEPT01', '부서 목록', '/organization/departments', 1, 1, 'MORGNMG'),
+('MMEMB01', '직원 현황', '/organization/members', 2, 1, 'MORGNMG'),
+('MBOARD1', '게시판', '/board', 1, 1, 'MCOMMSN'),
+('MWIKI01', '사내 위키', '/wiki', 2, 1, 'MCOMMSN'),
+('MMANUAL', '메뉴얼', '/manual', 3, 1, 'MCOMMSN'),
+('MADAPRV1', '전자결재 관리', '/admin/approval', 1, 1, 'MADMNMN'),
+('MADPOST1', '게시물 관리', '/admin/posts', 2, 1, 'MADMNMN'),
+('MADMEMP1', '직원 생성/관리', '/admin/members', 3, 1, 'MADMNMN'),
+('MADMORG1', '조직 관리', '/admin/organization', 4, 1, 'MADMNMN'),
+('MADAST01', '비품/자산 관리', '/admin/assets', 5, 1, 'MADMNMN'),
+('MADMAPP2', '결재선 관리', '/admin/approval-lines', 6, 1, 'MADMNMN'),
+('MADMCC01', '공통 코드 관리', '/admin/common-codes', 7, 1, 'MADMNMN');
+
 
 
 -- =========================

@@ -35,6 +35,9 @@ public class MenuEntity {
     @Column(nullable = false)
     private Integer sequence;      // 정렬 순서
 
+    @Column(nullable = false)
+    private Boolean activeYn; // 사용 여부
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private MenuEntity parent;
