@@ -46,7 +46,7 @@ dependencies {
     implementation 'org.bytedeco:javacv:1.5.9'
 
     // Prometheus
-    implementation 'io.micrometer:micrometer-registry-prometheus'
+//    implementation 'io.micrometer:micrometer-registry-prometheus'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // validation
